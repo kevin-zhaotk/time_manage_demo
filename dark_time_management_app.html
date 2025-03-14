@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间管理工具 - 暗色主题设计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            50: '#1C1C1E',
+                            100: '#2C2C2E',
+                            200: '#3A3A3C',
+                            300: '#48484A',
+                            400: '#636366'
+                        },
+                        accent: {
+                            primary: '#0A84FF',
+                            secondary: '#5E5CE6',
+                            success: '#32D74B',
+                            warning: '#FF9F0A',
+                            danger: '#FF453A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-morphism {
+            background: rgba(44, 44, 46, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-black p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-2xl font-bold mb-8 text-white">时间管理工具 - 暗色主题设计预览</h1>
+        
+        <!-- 设计预览容器 -->
+        <div class="flex space-x-4 overflow-x-auto pb-8 scrollbar-hide">
+            <!-- 倒数日 Tab -->
+            <div class="flex-none w-[320px] h-[640px] rounded-[32px] bg-dark-50 p-6 shadow-xl border-4 border-dark-200">
+                <div class="h-full rounded-[24px] bg-dark-100 shadow-sm overflow-hidden relative">
+                    <!-- 状态栏 -->
+                    <div class="h-12 glass-morphism flex items-center justify-between px-4 z-10">
+                        <span class="text-sm text-white">9:41</span>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- 内容区域 -->
+                    <div class="p-4">
+                        <h2 class="text-2xl font-semibold mb-6 text-white">倒数日</h2>
+                        
+                        <!-- 主要倒数日卡片 -->
+                        <div class="rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary p-4 text-white mb-4 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                            <div class="relative z-10">
+                                <div class="text-sm opacity-80">距离</div>
+                                <div class="text-xl font-bold my-2">2024春节</div>
+                                <div class="text-3xl font-bold">32天</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 其他倒数日列表 -->
+                        <div class="space-y-3">
+                            <!-- 节气卡片 -->
+                            <div class="rounded-xl glass-morphism p-4 flex justify-between items-center">
+                                <div>
+                                    <div class="text-sm text-gray-400">下一个节气</div>
+                                    <div class="text-white font-medium">雨水</div>
+                                </div>
+                                <div class="text-accent-primary font-bold">18天</div>
+                            </div>
+                            
+                            <!-- 生日卡片 -->
+                            <div class="rounded-xl glass-morphism p-4 flex justify-between items-center">
+                                <div>
+                                    <div class="text-sm text-gray-400">生日</div>
+                                    <div class="text-white font-medium">妈妈</div>
+                                </div>
+                                <div class="text-accent-warning font-bold">45天</div>
+                            </div>
+                            
+                            <!-- 节日卡片 -->
+                            <div class="rounded-xl glass-morphism p-4 flex justify-between items-center">
+                                <div>
+                                    <div class="text-sm text-gray-400">节日</div>
+                                    <div class="text-white font-medium">元宵节</div>
+                                </div>
+                                <div class="text-accent-success font-bold">24天</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 底部导航栏 -->
+                    <div class="absolute bottom-0 left-0 right-0 h-16 glass-morphism border-t border-dark-200 flex justify-around items-center px-6">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-6 h-6 text-accent-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-xs mt-1 text-accent-primary">倒数日</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                            <span class="text-xs mt-1 text-gray-500">待办</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                            </svg>
+                            <span class="text-xs mt-1 text-gray-500">工具</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-xs mt-1 text-gray-500">设置</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 待办事项 Tab -->
+            <div class="flex-none w-[320px] h-[640px] rounded-[32px] bg-dark-50 p-6 shadow-xl border-4 border-dark-200">
+                <div class="h-full rounded-[24px] bg-dark-100 shadow-sm overflow-hidden">
+                    <!-- 状态栏 -->
+                    <div class="h-12 glass-morphism flex items-center justify-between px-4">
+                        <span class="text-sm text-white">9:41</span>
+                        <button class="w-8 h-8 rounded-full bg-dark-200 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- 内容区域 -->
+                    <div class="p-4">
+                        <h2 class="text-2xl font-semibold mb-6 text-white">待办事项</h2>
+                        
+                        <!-- 日历视图 -->
+                        <div class="rounded-xl glass-morphism p-4 mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-white font-medium">二月 2024</span>
+                                <div class="flex space-x-2">
+                                    <button class="w-8 h-8 rounded-full hover:bg-dark-200 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path d="M15 19l-7-7 7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-full hover:bg-dark-200 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- 日历网格 -->
+                            <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                                <div class="text-gray-400">日</div>
+                                <div class="text-gray-400">一</div>
+                                <div class="text-gray-400">二</div>
+                                <div class="text-gray-400">三</div>
+                                <div class="text-gray-400">四</div>
+                                <div class="text-gray-400">五</div>
+                                <div class="text-gray-400">六</div>
+                                
+                                <!-- 日期格子 -->
+                                <div class="aspect-square flex items-center justify-center text-gray-500">28</div>
+                                <div class="aspect-square flex items-center justify-center text-gray-500">29</div>
+                                <div class="aspect-square flex items-center justify-center text-gray-500">30</div>
+                                <div class="aspect-square flex items-center justify-center text-gray-500">31</div>
+                                <div class="aspect-square flex items-center justify-center text-white">1</div>
+                                <div class="aspect-square flex items-center justify-center text-white">2</div>
+                                <div class="aspect-square flex items-center justify-center text-white">3</div>
+                                <!-- 当前日期 -->
+                                <div class="aspect-square flex items-center justify-center bg-accent-primary text-white rounded-full">4</div>
+                                <!-- 带待办的日期 -->
+                                <div class="aspect-square flex items-center justify-center text-white relative">
+                                    5
+                                    <div class="absolute bottom-1 w-1 h-1 bg-accent-warning rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 待办列表 -->
+                        <div class="space-y-3">
+                            <!-- 待办项 -->
+                            <div class="rounded-xl glass-morphism p-4 flex items-center space-x-3">
+                                <div class="w-5 h-5 rounded-full border-2 border-accent-primary"></div>
+                                <div class="flex-1">
+                                    <h3 class="text-white font-medium">项目进度会议</h3>
+                                    <p class="text-sm text-gray-400">14:30 - 15:30</p>
+                                </div>
+                                <div class="w-2 h-2 rounded-full bg-accent-warning"></div>
+                            </div>
+                            
+                            <!-- 已完成待办 -->
+                            <div class="rounded-xl glass-morphism p-4 flex items-center space-x-3 opacity-60">
+                                <div class="w-5 h-5 rounded-full border-2 border-accent-success flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-accent-success" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-gray-400 font-medium line-through">准备周报</h3>
+                                    <p class="text-sm text-gray-500">10:00 - 11:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时间工具集 Tab -->
+            <div class="flex-none w-[320px] h-[640px] rounded-[32px] bg-dark-50 p-6 shadow-xl border-4 border-dark-200">
+                <div class="h-full rounded-[24px] bg-dark-100 shadow-sm overflow-hidden">
+                    <!-- 状态栏 -->
+                    <div class="h-12 glass-morphism flex items-center justify-between px-4">
+                        <span class="text-sm text-white">9:41</span>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- 内容区域 -->
+                    <div class="p-4">
+                        <h2 class="text-2xl font-semibold mb-6 text-white">时间工具</h2>
+                        
+                        <!-- 工具网格 -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- 番茄时钟 -->
+                            <div class="rounded-xl glass-morphism p-4 aspect-square flex flex-col items-center justify-center">
+                                <div class="w-12 h-12 rounded-full bg-accent-primary bg-opacity-20 flex items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-accent-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-white font-medium">番茄时钟</span>
+                            </div>
+                            
+                            <!-- 计时器 -->
+                            <div class="rounded-xl glass-morphism p-4 aspect-square flex flex-col items-center justify-center">
+                                <div class="w-12 h-12 rounded-full bg-accent-secondary bg-opacity-20 flex items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-accent-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                                        <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-white font-medium">计时器</span>
+                            </div>
+                            
+                            <!-- 秒表 -->
+                            <div class="rounded-xl glass-morphism p-4 aspect-square flex flex-col items-center justify-center">
+                                <div class="w-12 h-12 rounded-full bg-accent-warning bg-opacity-20 flex items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-accent-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-white font-medium">秒表</span>
+                            </div>
+                            
+                            <!-- 日期计算 -->
+                            <div class="rounded-xl glass-morphism p-4 aspect-square flex flex-col items-center justify-center">
+                                <div class="w-12 h-12 rounded-full bg-accent-success bg-opacity-20 flex items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-accent-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-white font-medium">日期计算</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 最近使用 -->
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-white mb-4">最近使用</h3>
+                            <div class="space-y-3">
+                                <!-- 番茄时钟记录 -->
+                                <div class="rounded-xl glass-morphism p-4 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-full bg-accent-primary bg-opacity-20 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-accent-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-white font-medium">专注工作</h4>
+                                            <p class="text-sm text-gray-400">25分钟</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-accent-primary">已完成</span>
+                                </div>
+                                
+                                <!-- 计时器记录 -->
+                                <div class="rounded-xl glass-morphism p-4 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-full bg-accent-secondary bg-opacity-20 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-accent-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                                                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-white font-medium">休息时间</h4>
+                                            <p class="text-sm text-gray-400">5分钟</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-accent-secondary">进行中</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置 Tab -->
+            <div class="flex-none w-[320px] h-[640px] rounded-[32px] bg-dark-50 p-6 shadow-xl border-4 border-dark-200">
+                <div class="h-full rounded-[24px] bg-dark-100 shadow-sm overflow-hidden">
+                    <!-- 状态栏 -->
+                    <div class="h-12 glass-morphism flex items-center justify-between px-4">
+                        <span class="text-sm text-white">9:41</span>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- 内容区域 -->
+                    <div class="p-4">
+                        <h2 class="text-2xl font-semibold mb-6 text-white">设置</h2>
+                        
+                        <!-- 用户信息 -->
+                        <div class="rounded-xl glass-morphism p-4 mb-6 flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xl font-bold">
+                                TZ
+                            </div>
+                            <div>
+                                <h3 class="text-white font-medium text-lg">Tongkai Zhao</h3>
+                                <p class="text-gray-400">tongkai.zhao@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 设置列表 -->
+                        <div class="space-y-4">
+                            <!-- 通用设置 -->
+                            <div class="rounded-xl glass-morphism overflow-hidden">
+                                <div class="p-4 border-b border-dark-200">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-full bg-accent-primary bg-opacity-20 flex items-center justify-center">
+                                                <svg class="w-4 h-4 text-accent-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="text-white">通知提醒</span>
+                                        </div>
+                                        <div class="w-11 h-6 rounded-full bg-accent-primary relative">
+                                            <div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 border-b border-dark-200">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-full bg-accent-secondary bg-opacity-20 flex items-center justify-center">
+                                                <svg class="w-4 h-4 text-accent-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 010-7.072m12.728 0l3.182-3.182M5.586 8.464L2.404 5.282m0 13.436l3.182-3.182M18.314 18.718l3.182 3.182"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="text-white">声音效果</span>
+                                        </div>
+                                        <div class="w-11 h-6 rounded-full bg-dark-300 relative">
+                                            <div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-white"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 数据与隐私 -->
+                            <div class="rounded-xl glass-morphism overflow-hidden">
+                                <div class="p-4 border-b border-dark-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 rounded-full bg-accent-success bg-opacity-20 flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-accent-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                            </svg>
+                                        </div>
+                                        <span class="text-white">数据备份</span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 rounded-full bg-accent-warning bg-opacity-20 flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-accent-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 15v2m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                            </svg>
+                                        </div>
+                                        <span class="text-white">隐私设置</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 关于 -->
+                            <div class="rounded-xl glass-morphism overflow-hidden">
+                                <div class="p-4 border-b border-dark-200">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-full bg-accent-primary bg-opacity-20 flex items-center justify-center">
+                                                <svg class="w-4 h-4 text-accent-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="text-white">版本信息</span>
+                                        </div>
+                                        <span class="text-gray-400">1.0.0</span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 rounded-full bg-accent-danger bg-opacity-20 flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-accent-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                            </svg>
+                                        </div>
+                                        <span class="text-accent-danger">退出登录</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
