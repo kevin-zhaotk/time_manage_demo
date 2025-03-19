@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加待办事项</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#3b82f6',
+                        'app-secondary': '#f3f4f6',
+                        'app-accent': '#ef4444',
+                        'tag-work': '#3B82F6',
+                        'tag-study': '#8B5CF6',
+                        'tag-life': '#10B981',
+                        'tag-health': '#EC4899',
+                        'tag-travel': '#F59E0B',
+                        'tag-entertainment': '#F43F5E',
+                        'tag-fitness': '#06B6D4',
+                        'tag-daily': '#6B7280',
+                        'tag-other': '#6D28D9',
+                        'tag-work-bg': '#EFF6FF',
+                        'tag-study-bg': '#F5F3FF',
+                        'tag-life-bg': '#ECFDF5',
+                        'tag-health-bg': '#FCE7F3',
+                        'tag-travel-bg': '#FEF3C7',
+                        'tag-entertainment-bg': '#FEE2E2',
+                        'tag-fitness-bg': '#ECFEFF',
+                        'tag-daily-bg': '#F3F4F6',
+                        'tag-other-bg': '#EDE9FE',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        body {
+            max-height: 100vh;
+            overflow: hidden;
+        }
+        .tag-selector:checked + label {
+            border-width: 2px;
+        }
+        .priority-selector:checked + label {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-800/60 h-screen flex items-center justify-center">
+    <!-- iOS Status Bar (for context) -->
+    <div class="status-bar fixed top-0 left-0 right-0 flex justify-between items-center px-6 text-white z-50">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- Add Todo Modal -->
+    <div class="glass-card w-11/12 max-w-md rounded-3xl overflow-hidden mx-auto">
+        <!-- Modal Header -->
+        <div class="bg-white px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+            <button class="text-gray-500 font-medium">取消</button>
+            <h2 class="text-lg font-semibold text-gray-800">添加待办事项</h2>
+            <button class="text-app-primary font-medium">保存</button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="bg-white px-6 py-5 max-h-[70vh] overflow-y-auto">
+            <!-- Task Title -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">标题</label>
+                <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition" placeholder="输入待办事项标题">
+            </div>
+
+            <!-- Task Type -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">类型</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <!-- Work -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-work" class="hidden tag-selector" checked>
+                        <label for="type-work" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-work-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-work flex items-center justify-center mb-1">
+                                <i class="fas fa-briefcase text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-work">工作</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Study -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-study" class="hidden tag-selector">
+                        <label for="type-study" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-study-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-study flex items-center justify-center mb-1">
+                                <i class="fas fa-book text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-study">学习</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Life -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-life" class="hidden tag-selector">
+                        <label for="type-life" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-life-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-life flex items-center justify-center mb-1">
+                                <i class="fas fa-home text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-life">生活</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Health -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-health" class="hidden tag-selector">
+                        <label for="type-health" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-health-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-health flex items-center justify-center mb-1">
+                                <i class="fas fa-heartbeat text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-health">健康</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Travel -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-travel" class="hidden tag-selector">
+                        <label for="type-travel" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-travel-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-travel flex items-center justify-center mb-1">
+                                <i class="fas fa-plane text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-travel">旅行</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Entertainment -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-entertainment" class="hidden tag-selector">
+                        <label for="type-entertainment" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-entertainment-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-entertainment flex items-center justify-center mb-1">
+                                <i class="fas fa-gamepad text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-entertainment">娱乐</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Fitness -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-fitness" class="hidden tag-selector">
+                        <label for="type-fitness" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-fitness-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-fitness flex items-center justify-center mb-1">
+                                <i class="fas fa-dumbbell text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-fitness">健身</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Daily -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-daily" class="hidden tag-selector">
+                        <label for="type-daily" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-daily-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-daily flex items-center justify-center mb-1">
+                                <i class="fas fa-calendar-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-daily">日常</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Other -->
+                    <div>
+                        <input type="radio" name="taskType" id="type-other" class="hidden tag-selector">
+                        <label for="type-other" class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-tag-other-bg cursor-pointer transition">
+                            <div class="w-8 h-8 rounded-full bg-tag-other flex items-center justify-center mb-1">
+                                <i class="fas fa-ellipsis-h text-white text-sm"></i>
+                            </div>
+                            <span class="text-xs font-medium text-tag-other">其他</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date & Time -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">日期和时间</label>
+                <div class="flex space-x-2">
+                    <div class="flex-1">
+                        <div class="relative">
+                            <input type="date" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition" value="2024-08-16">
+                            <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                <i class="far fa-calendar text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="relative">
+                            <input type="time" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition" value="10:00">
+                            <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                <i class="far fa-clock text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">描述（可选）</label>
+                <textarea class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition h-24" placeholder="添加详细描述或备注..."></textarea>
+            </div>
+
+            <!-- Priority -->
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">优先级</label>
+                <div class="flex justify-between items-center">
+                    <div class="text-center">
+                        <input type="radio" name="priority" id="priority-low" class="hidden priority-selector" checked>
+                        <label for="priority-low" class="block cursor-pointer opacity-70 transition duration-200">
+                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-1 mx-auto">
+                                <i class="fas fa-arrow-down text-green-500"></i>
+                            </div>
+                            <span class="text-xs font-medium text-gray-600">低</span>
+                        </label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <input type="radio" name="priority" id="priority-medium" class="hidden priority-selector">
+                        <label for="priority-medium" class="block cursor-pointer opacity-70 transition duration-200">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-1 mx-auto">
+                                <i class="fas fa-equals text-blue-500"></i>
+                            </div>
+                            <span class="text-xs font-medium text-gray-600">中</span>
+                        </label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <input type="radio" name="priority" id="priority-high" class="hidden priority-selector">
+                        <label for="priority-high" class="block cursor-pointer opacity-70 transition duration-200">
+                            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-1 mx-auto">
+                                <i class="fas fa-arrow-up text-red-500"></i>
+                            </div>
+                            <span class="text-xs font-medium text-gray-600">高</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reminder -->
+            <div class="mb-5">
+                <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-medium text-gray-700">提醒</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-app-primary"></div>
+                    </label>
+                </div>
+                <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition appearance-none bg-white">
+                    <option>任务开始时</option>
+                    <option>提前 5 分钟</option>
+                    <option>提前 15 分钟</option>
+                    <option>提前 30 分钟</option>
+                    <option>提前 1 小时</option>
+                    <option>提前 1 天</option>
+                    <option>自定义...</option>
+                </select>
+            </div>
+
+            <!-- Repeat -->
+            <div class="mb-2">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-repeat text-indigo-500"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">重复</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-app-primary"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
