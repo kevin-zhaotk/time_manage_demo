@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亲戚关系计算</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#8B5A44',
+                        'app-secondary': '#F7EDE2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-red-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="home.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">亲戚关系计算</h1>
+            <p class="text-gray-500">复杂亲戚称谓智能推算</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 pb-20">
+        <!-- Input Section -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">关系计算</h3>
+            
+            <p class="text-gray-600 mb-4">请输入已知亲戚关系，计算未知的亲戚称谓</p>
+            
+            <!-- Starting Relation -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600 mb-2">我称呼他/她</label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-red-100 focus:ring-opacity-50 transition appearance-none pr-10">
+                        <option>爸爸</option>
+                        <option>妈妈</option>
+                        <option>爷爷</option>
+                        <option>奶奶</option>
+                        <option>外公</option>
+                        <option>外婆</option>
+                        <option selected>姑姑</option>
+                        <option>姑父</option>
+                        <option>舅舅</option>
+                        <option>舅妈</option>
+                        <option>姨妈</option>
+                        <option>姨夫</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Connection Relation -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600 mb-2">他/她称呼对方</label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-red-100 focus:ring-opacity-50 transition appearance-none pr-10">
+                        <option>儿子</option>
+                        <option>女儿</option>
+                        <option>爸爸</option>
+                        <option>妈妈</option>
+                        <option>爷爷</option>
+                        <option>奶奶</option>
+                        <option>外公</option>
+                        <option>外婆</option>
+                        <option selected>老公</option>
+                        <option>老婆</option>
+                        <option>哥哥</option>
+                        <option>弟弟</option>
+                        <option>姐姐</option>
+                        <option>妹妹</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calculate Button -->
+            <button class="w-full py-3 bg-app-primary text-white font-medium rounded-xl flex items-center justify-center">
+                <i class="fas fa-calculator mr-2"></i>
+                <span>计算关系</span>
+            </button>
+        </div>
+        
+        <!-- Result Section -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">计算结果</h3>
+            
+            <div class="flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-app-primary mb-3">姑父</div>
+                    <p class="text-gray-600">我应该称呼对方为"姑父"</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-app-secondary rounded-xl">
+                <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-app-primary flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-lightbulb text-white text-sm"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="font-medium text-gray-800 mb-1">关系解析</h4>
+                        <p class="text-sm text-gray-600">姑姑是我父亲的妹妹，姑姑的老公就是我的姑父。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Common Relations -->
+        <div class="glass-card rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">常见称谓</h3>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">伯伯的儿子</div>
+                    <div class="text-sm text-app-primary">堂兄/堂弟</div>
+                </button>
+                
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">舅舅的女儿</div>
+                    <div class="text-sm text-app-primary">表姐/表妹</div>
+                </button>
+                
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">姑姑的儿子</div>
+                    <div class="text-sm text-app-primary">表哥/表弟</div>
+                </button>
+                
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">姨妈的女儿</div>
+                    <div class="text-sm text-app-primary">表姐/表妹</div>
+                </button>
+                
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">爸爸的爸爸</div>
+                    <div class="text-sm text-app-primary">爷爷</div>
+                </button>
+                
+                <button class="glass-card rounded-xl p-3 text-left">
+                    <div class="font-medium text-gray-800">妈妈的爸爸</div>
+                    <div class="text-sm text-app-primary">外公</div>
+                </button>
+            </div>
+            
+            <!-- Relation Map -->
+            <div class="mt-5">
+                <button class="w-full py-3 border border-app-primary text-app-primary font-medium rounded-xl flex items-center justify-center">
+                    <i class="fas fa-sitemap mr-2"></i>
+                    <span>查看亲戚关系图谱</span>
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

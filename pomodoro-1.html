@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>番茄时钟</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#FF5A5F',
+                        'app-secondary': '#FFECEC',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        .timer-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: conic-gradient(#FF5A5F 0% 85%, #e5e7eb 85% 100%);
+            position: relative;
+        }
+        .timer-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: white;
+        }
+        .timer-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-rose-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="home.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">番茄时钟</h1>
+            <p class="text-gray-500">专注工作与休息</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 pb-20 flex flex-col items-center">
+        <!-- Session Type -->
+        <div class="glass-card rounded-full px-6 py-2 mb-6 flex items-center">
+            <i class="fas fa-brain text-app-primary mr-2"></i>
+            <span class="font-medium text-app-primary">工作时段</span>
+        </div>
+        
+        <!-- Timer Display -->
+        <div class="relative mb-8">
+            <div class="timer-circle">
+                <div class="timer-content">
+                    <div class="text-6xl font-bold text-gray-800 mb-2">21:15</div>
+                    <div class="text-gray-500">剩余时间</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timer Controls -->
+        <div class="flex justify-center items-center space-x-6 mb-8">
+            <button class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                <i class="fas fa-redo text-gray-600 text-xl"></i>
+            </button>
+            
+            <button class="w-20 h-20 rounded-full bg-app-primary flex items-center justify-center shadow-lg">
+                <i class="fas fa-pause text-white text-2xl"></i>
+            </button>
+            
+            <button class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                <i class="fas fa-stop text-gray-600 text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Session Info -->
+        <div class="glass-card rounded-2xl p-5 w-full mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">当前番茄周期</h3>
+            
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-brain text-red-500"></i>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-800">工作时段</div>
+                        <div class="text-sm text-gray-500">25分钟</div>
+                    </div>
+                </div>
+                <div class="text-sm font-medium text-app-primary">进行中</div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-coffee text-green-500"></i>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-800">休息时段</div>
+                        <div class="text-sm text-gray-500">5分钟</div>
+                    </div>
+                </div>
+                <div class="text-sm font-medium text-gray-400">等待中</div>
+            </div>
+        </div>
+        
+        <!-- Today's Stats -->
+        <div class="glass-card rounded-2xl p-5 w-full">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">今日统计</h3>
+            
+            <div class="grid grid-cols-3 gap-3">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-app-primary mb-1">2</div>
+                    <div class="text-sm text-gray-500">已完成</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800 mb-1">50分</div>
+                    <div class="text-sm text-gray-500">专注时间</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800 mb-1">10分</div>
+                    <div class="text-sm text-gray-500">休息时间</div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <div class="flex justify-between items-center mb-1">
+                    <div class="text-sm font-medium text-gray-700">今日目标</div>
+                    <div class="text-sm text-gray-500">4 / 8 番茄钟</div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-app-primary rounded-full h-2" style="width: 50%"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

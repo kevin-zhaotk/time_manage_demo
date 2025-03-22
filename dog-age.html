@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狗狗年龄计算</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#10B981',
+                        'app-secondary': '#ECFDF5',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10B981;
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="home.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">狗狗年龄计算</h1>
+            <p class="text-gray-500">将狗狗年龄转换为人类年龄</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 pb-20">
+        <!-- Dog Illustration -->
+        <div class="flex justify-center mb-8">
+            <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cute Dog" class="w-56 h-56 object-cover rounded-full border-4 border-white shadow-lg">
+        </div>
+        
+        <!-- Age Input -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">狗狗实际年龄</h3>
+            
+            <div class="mb-4">
+                <input type="range" min="0" max="20" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>0岁</span>
+                    <span>5岁</span>
+                    <span>10岁</span>
+                    <span>15岁</span>
+                    <span>20岁</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <div class="text-6xl font-bold text-app-primary">3</div>
+                <div class="text-2xl font-medium text-gray-500 ml-2">岁</div>
+            </div>
+            
+            <!-- Size Selection -->
+            <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">狗狗体型</h3>
+            
+            <div class="grid grid-cols-3 gap-3">
+                <div class="relative">
+                    <input type="radio" name="dogSize" id="small" class="absolute opacity-0 w-full h-full cursor-pointer">
+                    <label for="small" class="glass-card rounded-xl p-4 flex flex-col items-center cursor-pointer border-2 border-app-primary block">
+                        <i class="fas fa-dog text-app-primary text-xl mb-1"></i>
+                        <span class="text-sm font-medium">小型犬</span>
+                        <span class="text-xs text-gray-500">≤10kg</span>
+                    </label>
+                </div>
+                
+                <div class="relative">
+                    <input type="radio" name="dogSize" id="medium" class="absolute opacity-0 w-full h-full cursor-pointer" checked>
+                    <label for="medium" class="glass-card rounded-xl p-4 flex flex-col items-center cursor-pointer border-2 border-transparent block">
+                        <i class="fas fa-dog text-gray-600 text-2xl mb-1"></i>
+                        <span class="text-sm font-medium">中型犬</span>
+                        <span class="text-xs text-gray-500">10-25kg</span>
+                    </label>
+                </div>
+                
+                <div class="relative">
+                    <input type="radio" name="dogSize" id="large" class="absolute opacity-0 w-full h-full cursor-pointer">
+                    <label for="large" class="glass-card rounded-xl p-4 flex flex-col items-center cursor-pointer border-2 border-transparent block">
+                        <i class="fas fa-dog text-gray-600 text-3xl mb-1"></i>
+                        <span class="text-sm font-medium">大型犬</span>
+                        <span class="text-xs text-gray-500">≥25kg</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Result -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">计算结果</h3>
+            
+            <div class="flex items-center justify-center mb-4">
+                <div class="text-7xl font-bold text-app-primary">28</div>
+                <div class="text-2xl font-medium text-gray-500 ml-2">人类岁</div>
+            </div>
+            
+            <p class="text-center text-gray-600">相当于人类28岁的年龄，处于成年阶段</p>
+        </div>
+        
+        <!-- Age Chart -->
+        <div class="glass-card rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">狗狗年龄对照表</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-3 py-2 text-left text-gray-600">狗狗年龄</th>
+                            <th class="px-3 py-2 text-left text-gray-600">小型犬</th>
+                            <th class="px-3 py-2 text-left text-gray-600">中型犬</th>
+                            <th class="px-3 py-2 text-left text-gray-600">大型犬</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-3 py-2 text-app-primary font-medium">1岁</td>
+                            <td class="px-3 py-2">15岁</td>
+                            <td class="px-3 py-2">15岁</td>
+                            <td class="px-3 py-2">15岁</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-app-primary font-medium">2岁</td>
+                            <td class="px-3 py-2">24岁</td>
+                            <td class="px-3 py-2">24岁</td>
+                            <td class="px-3 py-2">24岁</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-app-primary font-medium">3岁</td>
+                            <td class="px-3 py-2">28岁</td>
+                            <td class="px-3 py-2">28岁</td>
+                            <td class="px-3 py-2">28岁</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-app-primary font-medium">4岁</td>
+                            <td class="px-3 py-2">32岁</td>
+                            <td class="px-3 py-2">32岁</td>
+                            <td class="px-3 py-2">32岁</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-app-primary font-medium">5岁</td>
+                            <td class="px-3 py-2">36岁</td>
+                            <td class="px-3 py-2">36岁</td>
+                            <td class="px-3 py-2">36岁</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

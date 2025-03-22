@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实用工具集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'time-primary': '#3B82F6',
+                        'time-secondary': '#EFF6FF',
+                        'calc-primary': '#10B981',
+                        'calc-secondary': '#ECFDF5',
+                        'info-primary': '#8B5CF6',
+                        'info-secondary': '#F5F3FF',
+                        'scan-primary': '#F59E0B',
+                        'scan-secondary': '#FEF3C7',
+                        'fun-primary': '#EF4444',
+                        'fun-secondary': '#FEE2E2',
+                        'culture-primary': '#8B5A44',
+                        'culture-secondary': '#F7EDE2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        body {
+            background-color: #f5f5f7;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-8">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4">
+        <h1 class="text-3xl font-bold text-gray-800">实用工具集</h1>
+        <p class="text-gray-500">多功能便捷工具箱</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6">
+        <!-- Time Management Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">时间管理</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Timer -->
+                <a href="timer.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-time-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-hourglass-half text-time-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">计时器</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">设置倒计时提醒，到点自动通知</p>
+                </a>
+                
+                <!-- Stopwatch -->
+                <a href="stopwatch.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-time-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-stopwatch text-time-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">秒表</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">精确计时，记录分段时间</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Pomodoro Timer -->
+                <a href="pomodoro.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-time-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-clock text-time-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">番茄时钟</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">高效工作法，专注与休息交替</p>
+                </a>
+                
+                <!-- Time Calculation -->
+                <a href="time-calc.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-time-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-calendar-alt text-time-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">时间计算</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">计算未来或过去的具体时间点</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Calculation Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">实用计算</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Dog Age Calculator -->
+                <a href="dog-age.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-calc-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-dog text-calc-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">狗狗年龄</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">将狗狗实际年龄转换为人类年龄</p>
+                </a>
+                
+                <!-- Cat Age Calculator -->
+                <a href="cat-age.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-calc-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-cat text-calc-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">猫咪年龄</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">将猫咪实际年龄转换为人类年龄</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Time Difference -->
+                <a href="time-diff.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-calc-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-hourglass text-calc-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">时间差</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">计算两个时间点之间的间隔</p>
+                </a>
+                
+                <!-- Working Day Calculator -->
+                <a href="workday.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-calc-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-briefcase text-calc-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">工作日计算</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">计算工作日天数，排除节假日</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Information Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">信息查询</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Trash Classification -->
+                <a href="trash.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-info-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-trash-alt text-info-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">垃圾分类</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">查询物品的正确垃圾分类方式</p>
+                </a>
+                
+                <!-- Common Phone Numbers -->
+                <a href="phone.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-info-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-phone-alt text-info-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">常用电话</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">紧急和常用电话快速拨号</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Chinese Dictionary -->
+                <a href="chinese-dict.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-info-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-book text-info-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">汉语字典</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">汉字查询，读音、释义、笔画</p>
+                </a>
+                
+                <!-- Idiom Dictionary -->
+                <a href="idiom-dict.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-info-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-bookmark text-info-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">成语字典</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">成语释义、出处、例句查询</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Scan Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">扫码工具</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- QR Code Scanner -->
+                <a href="qr-scan.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-scan-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-qrcode text-scan-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">二维码扫描</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">快速扫描解析二维码信息</p>
+                </a>
+                
+                <!-- Barcode Scanner -->
+                <a href="barcode-scan.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-scan-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-barcode text-scan-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">条形码扫描</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">扫描商品条码，查询产品信息</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- QR Code Generator -->
+                <a href="qr-generator.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-scan-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-code text-scan-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">生成二维码</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">文本、链接等转换为二维码</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Fun Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">休闲娱乐</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Brain Teasers -->
+                <a href="brain-teasers.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-fun-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-brain text-fun-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">脑筋急转弯</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">趣味智力问答，开发思维</p>
+                </a>
+                
+                <!-- Make a Decision -->
+                <a href="decision.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-fun-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-dice text-fun-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">做个决定</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">随机决策工具，摇骰子，抛硬币</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Cultural Tools Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">传统文化</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Chinese Time System -->
+                <a href="chinese-time.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-culture-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-moon text-culture-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">十二时辰</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">传统时辰查询与现代时间对照</p>
+                </a>
+                
+                <!-- Eight Characters -->
+                <a href="eight-chars.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-culture-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-yin-yang text-culture-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">生辰八字</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">传统八字命盘排盘与分析</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Relative Calculator -->
+                <a href="relative-calc.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-culture-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-users text-culture-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">亲戚关系</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">复杂亲戚称谓智能推算</p>
+                </a>
+                
+                <!-- Zodiac -->
+                <a href="zodiac.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-culture-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-star text-culture-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">星座运势</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">十二星座每日运势与性格分析</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- More Tools -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">更多工具</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <!-- Time Screen -->
+                <a href="time-screen.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-time-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-desktop text-time-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">时间屏幕</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">全屏显示当前时间，支持多种风格</p>
+                </a>
+                
+                <!-- Currency to Chinese -->
+                <a href="currency.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-calc-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-yen-sign text-calc-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">金额转大写</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">阿拉伯数字金额转中文大写表示</p>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Chinese Traditional/Simplified -->
+                <a href="chinese-convert.html" class="glass-card rounded-2xl p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-info-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-language text-info-primary"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">繁简体转换</h3>
+                    </div>
+                    <p class="text-sm text-gray-500">中文繁体与简体字互相转换</p>
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html> 

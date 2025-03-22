@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>繁简体转换</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#E63946',
+                        'app-secondary': '#FFF1F1',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        body {
+            background-color: #f5f5f7;
+            max-width: 430px;
+            margin: 0 auto;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .iphone-frame {
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+        .text-area {
+            min-height: 120px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame bg-gradient-to-br from-red-50 to-pink-50">
+        <!-- iOS Status Bar -->
+        <div class="status-bar flex justify-between items-center px-6 text-black">
+            <div class="text-sm font-semibold">9:41</div>
+            <div class="flex space-x-1">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <header class="px-6 pt-2 pb-4 flex items-center">
+            <a href="index.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+                <i class="fas fa-arrow-left text-gray-500"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">繁简体转换</h1>
+                <p class="text-gray-500">中文繁简体互相转换</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="px-6 pb-20 overflow-y-auto h-[calc(100%-110px)]">
+            <!-- Conversion Type -->
+            <div class="glass-card rounded-xl p-2 flex mb-6">
+                <button class="flex-1 py-2 rounded-lg bg-app-primary text-white font-medium">
+                    简体 → 繁体
+                </button>
+                <button class="flex-1 py-2 rounded-lg text-gray-600 font-medium">
+                    繁体 → 简体
+                </button>
+            </div>
+            
+            <!-- Input Section -->
+            <div class="glass-card rounded-2xl p-6 mb-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-lg font-semibold text-gray-700">简体文本</h3>
+                    <button class="text-gray-400">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                
+                <textarea placeholder="请输入需要转换的简体中文..." class="w-full p-3 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-red-200 focus:ring-opacity-50 transition glass-card text-area">中国是世界上历史最悠久的国家之一，有着五千多年的文明历史。</textarea>
+                
+                <div class="flex justify-between mt-3">
+                    <div class="text-xs text-gray-500">
+                        <span>字数：34</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs flex items-center">
+                            <i class="fas fa-paste mr-1"></i>
+                            <span>粘贴</span>
+                        </button>
+                        <button class="px-3 py-1 bg-app-primary text-white rounded-lg text-xs flex items-center">
+                            <i class="fas fa-exchange-alt mr-1"></i>
+                            <span>转换</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Direction Icon -->
+            <div class="flex justify-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-app-secondary flex items-center justify-center">
+                    <i class="fas fa-arrow-down text-app-primary"></i>
+                </div>
+            </div>
+            
+            <!-- Result Section -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-lg font-semibold text-gray-700">繁体文本</h3>
+                    <button class="text-gray-400">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                
+                <div class="w-full p-3 rounded-xl border border-gray-200 glass-card text-area overflow-y-auto">
+                    中國是世界上歷史最悠久的國家之一，有著五千多年的文明歷史。
+                </div>
+                
+                <div class="flex justify-between mt-3">
+                    <div class="text-xs text-gray-500">
+                        <span>字数：34</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs flex items-center">
+                            <i class="fas fa-volume-up mr-1"></i>
+                            <span>朗读</span>
+                        </button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs flex items-center">
+                            <i class="fas fa-share-alt mr-1"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- History -->
+            <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">历史记录</h3>
+                
+                <div class="space-y-4">
+                    <div class="glass-card rounded-xl p-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="text-xs text-gray-500">今天 10:23</div>
+                            <div class="px-2 py-1 bg-app-secondary rounded-md text-xs text-app-primary">
+                                简 → 繁
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-800 line-clamp-1 mb-1">中国传统文化博大精深，源远流长。</div>
+                        <div class="text-sm text-gray-500 line-clamp-1">中國傳統文化博大精深，源遠流長。</div>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="text-xs text-gray-500">昨天 16:45</div>
+                            <div class="px-2 py-1 bg-app-secondary rounded-md text-xs text-app-primary">
+                                繁 → 简
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-800 line-clamp-1 mb-1">電腦科技日新月異，不斷發展。</div>
+                        <div class="text-sm text-gray-500 line-clamp-1">电脑科技日新月异，不断发展。</div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-2 border border-gray-200 rounded-lg text-gray-600 text-sm">
+                    查看全部历史
+                </button>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 

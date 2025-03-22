@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计时器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#3B82F6',
+                        'app-secondary': '#EFF6FF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        .timer-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: conic-gradient(#3B82F6 0% 75%, #e5e7eb 75% 100%);
+            position: relative;
+        }
+        .timer-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: white;
+        }
+        .timer-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="home.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">计时器</h1>
+            <p class="text-gray-500">设置倒计时提醒</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 pb-20 flex flex-col items-center">
+        <!-- Timer Type Selector -->
+        <div class="glass-card rounded-full p-1 flex mb-8 w-64">
+            <button class="flex-1 py-2 rounded-full bg-app-primary text-white font-medium">
+                倒计时
+            </button>
+            <button class="flex-1 py-2 rounded-full text-gray-600 font-medium">
+                正计时
+            </button>
+        </div>
+        
+        <!-- Timer Display -->
+        <div class="relative mb-10">
+            <div class="timer-circle">
+                <div class="timer-content">
+                    <div class="text-6xl font-bold text-gray-800 mb-2">15:00</div>
+                    <div class="text-gray-500">剩余时间</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timer Controls -->
+        <div class="flex justify-center items-center space-x-6 mb-10">
+            <button class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                <i class="fas fa-redo text-gray-600 text-xl"></i>
+            </button>
+            
+            <button class="w-20 h-20 rounded-full bg-app-primary flex items-center justify-center shadow-lg">
+                <i class="fas fa-play text-white text-2xl"></i>
+            </button>
+            
+            <button class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                <i class="fas fa-stop text-gray-600 text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Preset Times -->
+        <h3 class="text-lg font-semibold text-gray-700 mb-3 self-start">预设时间</h3>
+        
+        <div class="grid grid-cols-3 gap-3 w-full">
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">5分钟</div>
+            </button>
+            
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">10分钟</div>
+            </button>
+            
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">15分钟</div>
+            </button>
+            
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">20分钟</div>
+            </button>
+            
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">30分钟</div>
+            </button>
+            
+            <button class="glass-card rounded-xl py-3 px-4 text-center">
+                <div class="text-lg font-semibold text-gray-800">1小时</div>
+            </button>
+        </div>
+        
+        <!-- Custom Time Button -->
+        <button class="glass-card rounded-xl py-3 px-4 text-center w-full mt-3 flex items-center justify-center">
+            <i class="fas fa-plus text-app-primary mr-2"></i>
+            <span class="font-semibold text-app-primary">自定义时间</span>
+        </button>
+    </main>
+</body>
+</html> 

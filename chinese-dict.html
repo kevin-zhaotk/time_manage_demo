@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉语字典</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#5E60CE',
+                        'app-secondary': '#EEEEFC',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="home.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">汉语字典</h1>
+            <p class="text-gray-500">汉字查询、读音和释义</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 pb-20">
+        <!-- Search Section -->
+        <div class="glass-card rounded-2xl p-5 mb-6">
+            <div class="relative mb-4">
+                <input type="text" placeholder="请输入要查询的汉字" value="智" class="w-full px-4 py-3 pl-12 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-purple-200 focus:ring-opacity-50 transition">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- Search Method Tabs -->
+            <div class="flex justify-around">
+                <button class="flex flex-col items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-app-secondary flex items-center justify-center mb-1">
+                        <i class="fas fa-font text-app-primary"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-600">按字查询</span>
+                </button>
+                
+                <button class="flex flex-col items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-1">
+                        <i class="fas fa-volume-up text-gray-500"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">按拼音查询</span>
+                </button>
+                
+                <button class="flex flex-col items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-1">
+                        <i class="fas fa-pen text-gray-500"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">按笔画查询</span>
+                </button>
+                
+                <button class="flex flex-col items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-1">
+                        <i class="fas fa-th text-gray-500"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">按部首查询</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Character Display -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center">
+                    <div class="bg-app-secondary w-20 h-20 rounded-2xl flex items-center justify-center mr-4">
+                        <span class="text-5xl font-bold text-gray-800">智</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <span class="text-lg text-gray-800 font-medium mr-2">zhì</span>
+                            <button class="w-8 h-8 rounded-full bg-app-secondary flex items-center justify-center">
+                                <i class="fas fa-volume-up text-app-primary"></i>
+                            </button>
+                        </div>
+                        <div class="flex space-x-2">
+                            <div class="px-2 py-1 bg-app-secondary rounded-lg text-xs text-app-primary">
+                                形声字
+                            </div>
+                            <div class="px-2 py-1 bg-gray-100 rounded-lg text-xs text-gray-600">
+                                12画
+                            </div>
+                            <div class="px-2 py-1 bg-gray-100 rounded-lg text-xs text-gray-600">
+                                日部
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="far fa-star text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- Character Details -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">基本释义</h3>
+                <p class="text-gray-600 mb-4">
+                    智慧，聪明：~力。~能。天~。~囊（智谋的宝库）。<br>
+                    智谋，计谋：~取（用计谋取胜）。足~多谋。
+                </p>
+                
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">详细解释</h3>
+                <div class="glass-card rounded-xl p-4 mb-3">
+                    <h4 class="font-medium text-gray-800 mb-1">【名词】</h4>
+                    <p class="text-sm text-gray-600">
+                        1. 指思维、认识能力，如"智力"、"智慧"。<br>
+                        2. 谋略，计策，如"智谋"、"智勇"。
+                    </p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-4">
+                    <h4 class="font-medium text-gray-800 mb-1">【常用词组】</h4>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智慧</div>
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智力</div>
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智能</div>
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智囊</div>
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智商</div>
+                        <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary">智者</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Example Section -->
+        <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">例句</h3>
+            
+            <div class="mb-4">
+                <p class="text-gray-600 mb-2">"发展人工<span class="text-app-primary font-medium">智</span>能，必须确保安全可靠。"</p>
+                <p class="text-xs text-gray-500">——《关于人工智能发展的指导意见》</p>
+            </div>
+            
+            <div>
+                <p class="text-gray-600 mb-2">"<span class="text-app-primary font-medium">智</span>者见于未萌，愚者察于既成。"</p>
+                <p class="text-xs text-gray-500">——《管子·七法》</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

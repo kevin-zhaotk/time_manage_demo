@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成语字典</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#4361EE',
+                        'app-secondary': '#EFF3FF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        body {
+            background-color: #f5f5f7;
+            max-width: 430px;
+            margin: 0 auto;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .iphone-frame {
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+        .character {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4361EE;
+            background-color: #EFF3FF;
+            border-radius: 8px;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame bg-gradient-to-br from-blue-50 to-indigo-50">
+        <!-- iOS Status Bar -->
+        <div class="status-bar flex justify-between items-center px-6 text-black">
+            <div class="text-sm font-semibold">9:41</div>
+            <div class="flex space-x-1">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <header class="px-6 pt-2 pb-4 flex items-center">
+            <a href="index.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+                <i class="fas fa-arrow-left text-gray-500"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">成语字典</h1>
+                <p class="text-gray-500">查询成语释义与出处</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="px-6 pb-20 overflow-y-auto h-[calc(100%-110px)]">
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <div class="relative">
+                    <input type="text" placeholder="输入成语进行查询" class="w-full px-4 py-3 pl-12 rounded-xl border border-gray-200 focus:border-app-primary focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition glass-card">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <button class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <i class="fas fa-microphone text-gray-400"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Current Idiom -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700">一举两得</h3>
+                    <button class="w-10 h-10 rounded-full bg-app-secondary flex items-center justify-center">
+                        <i class="far fa-bookmark text-app-primary"></i>
+                    </button>
+                </div>
+                
+                <div class="flex mb-4">
+                    <div class="character">一</div>
+                    <div class="character">举</div>
+                    <div class="character">两</div>
+                    <div class="character">得</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="text-sm text-gray-500 mb-1">拼音</div>
+                    <div class="text-gray-700">yī jǔ liǎng dé</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="text-sm text-gray-500 mb-1">释义</div>
+                    <div class="text-gray-700">一次行动得到两种好处。比喻做一件事情同时取得两种效果。</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="text-sm text-gray-500 mb-1">出处</div>
+                    <div class="text-gray-700">《史记·淮阴侯列传》："一举而势不两积。"</div>
+                </div>
+                
+                <div>
+                    <div class="text-sm text-gray-500 mb-1">例句</div>
+                    <div class="text-gray-700">既可以培养学生的社会实践能力，又能服务社区，真是一举两得。</div>
+                </div>
+            </div>
+            
+            <!-- Synonyms -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">相近成语</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <div>
+                            <div class="font-medium text-gray-800">一箭双雕</div>
+                            <div class="text-xs text-gray-500">yī jiàn shuāng diāo</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <div>
+                            <div class="font-medium text-gray-800">一石二鸟</div>
+                            <div class="text-xs text-gray-500">yī shí èr niǎo</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex justify-between items-center py-2">
+                        <div>
+                            <div class="font-medium text-gray-800">一石两鸟</div>
+                            <div class="text-xs text-gray-500">yī shí liǎng niǎo</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Searches -->
+            <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">最近查询</h3>
+                
+                <div class="flex flex-wrap gap-2">
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        守株待兔
+                    </div>
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        画蛇添足
+                    </div>
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        对牛弹琴
+                    </div>
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        滥竽充数
+                    </div>
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        三人成虎
+                    </div>
+                    <div class="px-3 py-2 bg-app-secondary rounded-lg text-app-primary font-medium text-sm">
+                        纸上谈兵
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 

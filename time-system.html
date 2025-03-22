@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十二时辰</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#FF9500',
+                        'app-secondary': '#FFF5E6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        body {
+            background-color: #f5f5f7;
+            max-width: 430px;
+            margin: 0 auto;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .iphone-frame {
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+        .time-circle {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #FF9500 0% 8.33%,
+                #FFB246 8.33% 16.66%,
+                #FF9500 16.66% 25%,
+                #FFB246 25% 33.33%,
+                #FF9500 33.33% 41.66%,
+                #FFB246 41.66% 50%,
+                #FF9500 50% 58.33%,
+                #FFB246 58.33% 66.66%,
+                #FF9500 66.66% 75%,
+                #FFB246 75% 83.33%,
+                #FF9500 83.33% 91.66%,
+                #FFB246 91.66% 100%
+            );
+            position: relative;
+        }
+        .time-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: white;
+        }
+        .time-marker {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background-color: #FF9500;
+            box-shadow: 0 2px 8px rgba(255, 149, 0, 0.4);
+        }
+        .current-time-indicator {
+            position: absolute;
+            width: 130px;
+            height: 3px;
+            background-color: #FF5A5F;
+            transform-origin: left center;
+            left: 50%;
+            top: 50%;
+            transform: rotate(135deg);
+        }
+        .current-time-indicator::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #FF5A5F;
+            right: -5px;
+            top: -3.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame bg-gradient-to-br from-amber-50 to-orange-50">
+        <!-- iOS Status Bar -->
+        <div class="status-bar flex justify-between items-center px-6 text-black">
+            <div class="text-sm font-semibold">9:41</div>
+            <div class="flex space-x-1">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <header class="px-6 pt-2 pb-4 flex items-center">
+            <a href="index.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+                <i class="fas fa-arrow-left text-gray-500"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">十二时辰</h1>
+                <p class="text-gray-500">传统时辰与现代时间对照</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="px-6 pb-20 overflow-y-auto h-[calc(100%-110px)]">
+            <!-- Current Time -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700">当前时辰</h3>
+                    <div class="text-app-primary font-medium">15:23</div>
+                </div>
+                
+                <div class="flex items-center p-3 bg-app-secondary rounded-xl">
+                    <div class="w-16 h-16 rounded-full bg-app-primary flex items-center justify-center mr-4 text-white text-3xl font-bold">
+                        未
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold text-gray-800">未时</div>
+                        <div class="text-gray-600">13:00 - 15:00</div>
+                        <div class="text-sm text-gray-500 mt-1">羊入草，太阳西斜微微倾</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Time Circle -->
+            <div class="flex justify-center mb-6">
+                <div class="relative">
+                    <div class="time-circle">
+                        <div class="current-time-indicator"></div>
+                        <div class="time-marker" style="top: 30px; left: 115px;">子</div>
+                        <div class="time-marker" style="top: 65px; left: 195px;">丑</div>
+                        <div class="time-marker" style="top: 130px; left: 230px;">寅</div>
+                        <div class="time-marker" style="top: 195px; left: 195px;">卯</div>
+                        <div class="time-marker" style="top: 230px; left: 130px;">辰</div>
+                        <div class="time-marker" style="top: 195px; left: 65px;">巳</div>
+                        <div class="time-marker" style="top: 130px; left: 30px;">午</div>
+                        <div class="time-marker" style="top: 65px; left: 65px;">未</div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-app-primary">未时</div>
+                            <div class="text-gray-500 text-sm">羊入草时</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Time Chart -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">十二时辰表</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="px-3 py-2 text-left text-gray-600">时辰</th>
+                                <th class="px-3 py-2 text-left text-gray-600">现代时间</th>
+                                <th class="px-3 py-2 text-left text-gray-600">含义</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">子时</td>
+                                <td class="px-3 py-2">23:00 - 01:00</td>
+                                <td class="px-3 py-2">半夜，老鼠出没</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">丑时</td>
+                                <td class="px-3 py-2">01:00 - 03:00</td>
+                                <td class="px-3 py-2">牛耕田，夜深人静</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">寅时</td>
+                                <td class="px-3 py-2">03:00 - 05:00</td>
+                                <td class="px-3 py-2">虎啸晓，天将明未明</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">卯时</td>
+                                <td class="px-3 py-2">05:00 - 07:00</td>
+                                <td class="px-3 py-2">太阳升起，日出兔出穴</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">辰时</td>
+                                <td class="px-3 py-2">07:00 - 09:00</td>
+                                <td class="px-3 py-2">龙升天，日上三竿</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">巳时</td>
+                                <td class="px-3 py-2">09:00 - 11:00</td>
+                                <td class="px-3 py-2">蛇出洞，阳光强烈</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">午时</td>
+                                <td class="px-3 py-2">11:00 - 13:00</td>
+                                <td class="px-3 py-2">马feeding，太阳当头照</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 bg-app-secondary/50">
+                                <td class="px-3 py-2 text-app-primary font-medium">未时</td>
+                                <td class="px-3 py-2">13:00 - 15:00</td>
+                                <td class="px-3 py-2">羊入草，太阳西斜</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">申时</td>
+                                <td class="px-3 py-2">15:00 - 17:00</td>
+                                <td class="px-3 py-2">猴摘果，暮色渐起</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">酉时</td>
+                                <td class="px-3 py-2">17:00 - 19:00</td>
+                                <td class="px-3 py-2">鸡归巢，日落黄昏</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-3 py-2 text-app-primary font-medium">戌时</td>
+                                <td class="px-3 py-2">19:00 - 21:00</td>
+                                <td class="px-3 py-2">狗守夜，华灯初上</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2 text-app-primary font-medium">亥时</td>
+                                <td class="px-3 py-2">21:00 - 23:00</td>
+                                <td class="px-3 py-2">猪入睡，深夜降临</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Cultural Background -->
+            <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">文化背景</h3>
+                
+                <div class="text-sm text-gray-600 space-y-3">
+                    <p>十二时辰是中国古代计时方式，将一天平均分为十二个时段，每个时辰相当于现代的两小时。</p>
+                    <p>十二时辰与十二生肖相对应，形成独特的文化体系。古人认为不同时辰具有不同的阴阳属性和吉凶特征。</p>
+                    <p>传统医学、风水、占卜等领域至今仍使用时辰作为重要参考，体现了中华文化的源远流长。</p>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm font-medium text-gray-700">延伸阅读</div>
+                        <button class="px-3 py-1 bg-app-secondary text-app-primary rounded-lg text-sm">
+                            查看更多
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 
