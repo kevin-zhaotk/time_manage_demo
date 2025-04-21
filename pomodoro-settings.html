@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>番茄时钟设置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#3B82F6',
+                        'app-secondary': '#EFF6FF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            width: 428px;
+            height: 926px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 40px;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-6 pt-2 pb-4 flex items-center">
+        <a href="pomodoro.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+            <i class="fas fa-arrow-left text-gray-500"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">设置</h1>
+            <p class="text-gray-500">自定义你的番茄时钟</p>
+        </div>
+    </header>
+
+    <!-- Settings Content -->
+    <main class="px-6 py-4">
+        <!-- Time Settings -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">时间设置</h3>
+            
+            <!-- Work Time -->
+            <div class="mb-6">
+                <label class="block text-gray-600 mb-2">工作时间（分钟）</label>
+                <div class="flex items-center">
+                    <input type="number" value="25" 
+                           class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 focus:border-app-primary focus:ring-1 focus:ring-app-primary outline-none" />
+                </div>
+            </div>
+            
+            <!-- Break Time -->
+            <div>
+                <label class="block text-gray-600 mb-2">休息时间（分钟）</label>
+                <div class="flex items-center">
+                    <input type="number" value="5" 
+                           class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 focus:border-app-primary focus:ring-1 focus:ring-app-primary outline-none" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification Settings -->
+        <div class="glass-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">提醒设置</h3>
+            
+            <!-- Sound Switch -->
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <div class="font-medium text-gray-800">声音提醒</div>
+                    <div class="text-sm text-gray-500">时间结束时播放提示音</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-app-primary"></div>
+                </label>
+            </div>
+            
+            <!-- Vibration Switch -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="font-medium text-gray-800">震动提醒</div>
+                    <div class="text-sm text-gray-500">时间结束时手机震动</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-app-primary"></div>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Auto Start Settings -->
+        <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="font-medium text-gray-800">自动开始下一个环节</div>
+                    <div class="text-sm text-gray-500">自动切换工作和休息时间</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-app-primary"></div>
+                </label>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

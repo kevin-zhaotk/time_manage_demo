@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫描二维码</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#3b82f6',
+                        'app-secondary': '#f3f4f6',
+                        'app-accent': '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+        }
+        .iphone-frame {
+            width: 428px;
+            height: 926px;
+            background-color: #f8f9fa;
+            border-radius: 55px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+        .screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scan-option {
+            transition: all 0.3s ease;
+        }
+        .scan-option:hover {
+            transform: translateY(-5px);
+        }
+        .scan-option:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 h-full">
+    <!-- iOS Status Bar -->
+    <div class="status-bar flex justify-between items-center px-6 text-black">
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex space-x-1">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <div class="iphone-frame">
+        <div class="screen">
+            <!-- App Header -->
+            <header class="px-6 pt-2 pb-4 flex items-center">
+                <a href="index.html" class="w-10 h-10 rounded-full bg-white/70 flex items-center justify-center mr-4">
+                    <i class="fas fa-arrow-left text-gray-500"></i>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">扫描二维码</h1>
+                    <p class="text-gray-500">扫描二维码和条形码</p>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="px-6 pb-24">
+                <!-- Scan Options -->
+                <div class="glass-card rounded-2xl p-5 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">选择扫描类型</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="qr_scan.html" class="scan-option glass-card rounded-xl p-4 flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                                <i class="fas fa-qrcode text-blue-500 text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-1">二维码</h4>
+                            <p class="text-xs text-gray-500 text-center">扫描二维码</p>
+                        </a>
+                        
+                        <a href="qr_scan.html" class="scan-option glass-card rounded-xl p-4 flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                                <i class="fas fa-barcode text-green-500 text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-1">条形码</h4>
+                            <p class="text-xs text-gray-500 text-center">扫描条形码</p>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Recent Scans -->
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">最近扫描</h3>
+                
+                <div class="glass-card rounded-2xl p-4 mb-3">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-link text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">网址链接</h4>
+                                <div class="text-sm text-gray-500">https://www.example.com</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400">今天 14:30</div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-4 mb-3">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">联系人</h4>
+                                <div class="text-sm text-gray-500">张三 - 138****1234</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400">昨天 09:15</div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-4 mb-3">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-file-alt text-yellow-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">文本</h4>
+                                <div class="text-sm text-gray-500">会议时间：2024年8月16日...</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400">3天前</div>
+                    </div>
+                </div>
+                
+                <!-- Generate QR Code Button -->
+                <button class="glass-card rounded-2xl p-4 w-full flex items-center justify-center mt-4">
+                    <i class="fas fa-qrcode text-blue-500 mr-2"></i>
+                    <span class="font-medium text-blue-500">生成二维码</span>
+                </button>
+            </main>
+
+            <!-- Tab Bar -->
+            <div class="fixed bottom-0 left-0 right-0 glass-card h-24 pt-2 pb-8 px-6">
+                <div class="flex justify-around items-center h-full">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-calendar-alt text-gray-400 text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400 mt-1">倒数日</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-tasks text-gray-400 text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400 mt-1">待办事项</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-app-primary flex items-center justify-center">
+                            <i class="fas fa-qrcode text-white text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-app-primary mt-1">扫描</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-cog text-gray-400 text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400 mt-1">设置</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
