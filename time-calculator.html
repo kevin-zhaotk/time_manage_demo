@@ -4,441 +4,504 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>时间推算</title>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #7c4dff;
             --primary-light: #e4dcff;
-            --result-color: #4caf50;
-            --input-bg: #f5f5f5;
-            --text-color: #333;
-            --text-secondary: #666;
-            --border-color: #eee;
-            --card-bg: #fff;
+            --success-color: #4CAF50;
+            --danger-color: #F44336;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: var(--text-color);
-            line-height: 1.5;
-        }
-        
-        .screen {
-            position: relative;
-            max-width: 414px;
-            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: var(--text-primary);
             height: 100vh;
-            background-color: #fff;
-            overflow-y: auto;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
         }
         
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* iPhone 13 Pro Max Frame */
+        .device-frame {
+            position: relative;
+            width: 428px;
+            height: 926px;
+            margin: 20px auto;
+            border-radius: 55px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            background-color: #111;
         }
         
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .time {
-            font-weight: bold;
-        }
-        
-        .icons span {
-            margin-left: 5px;
-        }
-        
+        /* Notch */
         .notch {
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 180px;
-            height: 25px;
-            background-color: #000;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            width: 160px;
+            height: 34px;
+            background-color: #111;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 20;
         }
         
-        .title-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-        }
-        
-        .back-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        .page-title {
-            font-size: 18px;
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
+        .screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            border-radius: 44px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.95), rgba(65, 105, 225, 0.9));
         }
         
         .content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            padding: 70px 24px 40px;
+            min-height: 100%;
         }
         
+        /* Status Bar */
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            z-index: 10;
+        }
+        
+        .status-bar .time {
+            font-weight: 600;
+        }
+        
+        .status-bar .icons {
+            display: flex;
+            gap: 6px;
+        }
+        
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+            position: relative;
+            padding-top: 10px;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 0;
+            top: 14px;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 5;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+        }
+        
+        /* Card */
         .card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 600;
         }
         
         .card-title i {
-            margin-right: 10px;
-            color: var(--primary-color);
+            margin-right: 12px;
+            font-size: 20px;
         }
         
-        .input-group {
-            margin-bottom: 15px;
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
         }
         
-        .input-label {
-            font-size: 14px;
-            color: var(--text-secondary);
+        .form-label {
+            display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 15px;
         }
         
-        .input-field {
+        .form-control {
             display: flex;
-            background-color: var(--input-bg);
-            border-radius: 10px;
-            overflow: hidden;
+            background-color: rgba(245, 245, 245, 0.9);
+            border-radius: 16px;
             border: 1px solid transparent;
-            transition: border-color 0.2s;
-            height: 50px;
-            align-items: center;
+            transition: all 0.2s;
+            height: 54px;
+            position: relative;
         }
         
-        .input-field:focus-within {
+        .form-control:focus-within {
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 1px var(--primary-color);
         }
         
-        .input-field input, .input-field select {
+        .form-control input,
+        .form-control .date-display {
             flex: 1;
-            background: transparent;
             border: none;
-            padding: 0 15px;
+            background: transparent;
+            padding: 0 16px;
             font-size: 16px;
             height: 100%;
-            color: var(--text-color);
-            font-family: inherit;
-        }
-        
-        .input-field select {
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-        
-        .input-field input:focus, .input-field select:focus {
             outline: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
         }
         
-        .input-field .icon {
-            width: 50px;
+        .form-control .icon {
+            width: 54px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
+            color: var(--primary-color);
             font-size: 18px;
         }
         
-        .input-field .clear-btn {
-            width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 18px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        
-        .input-field .clear-btn:hover {
-            opacity: 1;
-        }
-        
+        /* Date Quick Select */
         .date-selector {
             display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         
-        .date-item {
+        .date-option {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--input-bg);
-            padding: 12px 0;
-            border-radius: 10px;
-            align-items: center;
-            margin: 0 5px;
-            border: 1px solid transparent;
+            padding: 12px 8px;
+            background-color: rgba(245, 245, 245, 0.9);
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.2s;
+            border: 2px solid transparent;
             cursor: pointer;
-            transition: 0.2s;
         }
         
-        .date-item:first-child {
-            margin-left: 0;
-        }
-        
-        .date-item:last-child {
-            margin-right: 0;
-        }
-        
-        .date-item.active {
+        .date-option.active {
             background-color: var(--primary-light);
             border-color: var(--primary-color);
+        }
+        
+        .date-option-label {
+            font-weight: 600;
+            margin-bottom: 2px;
+            font-size: 15px;
+        }
+        
+        .date-option-value {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        /* Direction Selector */
+        .direction-selector {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: rgba(245, 245, 245, 0.9);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 54px;
+        }
+        
+        .direction-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            gap: 8px;
+        }
+        
+        .direction-option.forward.active {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .direction-option.backward.active {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .btn {
+            flex: 1;
+            height: 54px;
+            border-radius: 16px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            background-color: #6c42e5;
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: var(--text-secondary);
+        }
+        
+        .btn-secondary:active {
+            background-color: #e0e0e0;
+            transform: scale(0.98);
+        }
+        
+        /* Result Section */
+        .result-section {
+            margin-top: 24px;
+            display: none;
+        }
+        
+        .result-section.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .result-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .result-header i {
+            margin-right: 10px;
+        }
+        
+        .result-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .date-column {
+            flex: 1;
+        }
+        
+        .date-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        
+        .date-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .date-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .date-badge.start {
+            background-color: var(--primary-color);
+        }
+        
+        .date-badge.end.forward {
+            background-color: var(--success-color);
+        }
+        
+        .date-badge.end.backward {
+            background-color: var(--danger-color);
+        }
+        
+        .date-info {
+            display: flex;
+            flex-direction: column;
         }
         
         .date-value {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-color);
+            color: var(--text-primary);
         }
         
         .date-label {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-top: 4px;
-        }
-        
-        .button {
-            height: 54px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        
-        .primary-button {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .primary-button:active {
-            background-color: #6c42e5;
-        }
-        
-        .reset-button {
-            background-color: var(--input-bg);
-            color: var(--text-secondary);
-            margin-right: 10px;
-        }
-        
-        .reset-button:active {
-            background-color: #e0e0e0;
-        }
-        
-        .button-group {
-            display: flex;
-            margin-top: 10px;
-        }
-        
-        .button-group .button {
-            flex: 1;
-        }
-        
-        .result-card {
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 10px;
-            background-color: #f0f7ff;
-            border: 1px dashed #7c4dff;
-            display: none;
-        }
-        
-        .result-card.visible {
-            display: block;
-        }
-        
-        .result-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .result-title i {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-        
-        .result-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .result-dates {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .result-date {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .result-date:last-child {
-            margin-bottom: 0;
-        }
-        
-        .date-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 16px;
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        .date-detail {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .date-value-lg {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        
-        .date-label-sm {
-            font-size: 12px;
-            color: var(--text-secondary);
             margin-top: 2px;
         }
         
-        .divider {
+        .days-indicator {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 15px;
+            margin-left: 20px;
         }
         
-        .divider-line {
+        .days-line {
+            height: 25px;
             width: 1px;
-            height: 30px;
-            background-color: #ddd;
+            background-color: rgba(0, 0, 0, 0.1);
             margin: 5px 0;
         }
         
-        .divider-days {
+        .days-value {
             background-color: var(--primary-light);
             color: var(--primary-color);
-            font-weight: 600;
             font-size: 14px;
-            padding: 5px 12px;
+            font-weight: 600;
+            padding: 6px 12px;
             border-radius: 12px;
+            text-align: center;
+            min-width: 60px;
         }
         
-        .days-arrow {
+        /* History Section */
+        .history-section-title {
+            color: white;
             font-size: 18px;
-            color: var(--primary-color);
-        }
-        
-        .history-card {
-            margin-top: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            margin-top: 30px;
         }
         
         .history-list {
-            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         
         .history-item {
             display: flex;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 16px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-out;
+            animation-fill-mode: both;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
-        .history-item:last-child {
-            border-bottom: none;
-        }
+        .history-item:nth-child(1) { animation-delay: 0.05s; }
+        .history-item:nth-child(2) { animation-delay: 0.1s; }
+        .history-item:nth-child(3) { animation-delay: 0.15s; }
         
         .history-icon {
             width: 40px;
             height: 40px;
-            border-radius: 20px;
-            background-color: var(--primary-light);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            color: var(--primary-color);
-            font-size: 16px;
+            margin-right: 14px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .history-icon.forward {
+            background-color: var(--success-color);
+        }
+        
+        .history-icon.backward {
+            background-color: var(--danger-color);
         }
         
         .history-details {
             flex: 1;
-            display: flex;
-            flex-direction: column;
+            min-width: 0;
         }
         
         .history-dates {
             display: flex;
+            align-items: center;
+            font-weight: 600;
             font-size: 15px;
-            color: var(--text-color);
-            font-weight: 500;
+            margin-bottom: 3px;
+            flex-wrap: wrap;
+        }
+        
+        .history-date {
+            white-space: nowrap;
         }
         
         .history-arrow {
@@ -446,190 +509,298 @@
             color: var(--text-secondary);
         }
         
-        .history-time {
+        .history-timestamp {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-top: 4px;
         }
         
         .history-days {
-            padding: 2px 8px;
+            padding: 4px 10px;
             background-color: var(--primary-light);
             color: var(--primary-color);
-            font-size: 12px;
-            font-weight: 600;
             border-radius: 10px;
-            margin-left: auto;
+            font-weight: 600;
+            font-size: 13px;
+            min-width: 45px;
+            text-align: center;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        
+        .empty-history {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .empty-history i {
+            font-size: 32px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .empty-message {
+            color: var(--text-secondary);
+        }
+        
+        /* Date Picker Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
         }
         
-        .bottom-nav {
-            display: flex;
-            background-color: #fff;
-            border-top: 1px solid #eee;
-            padding: 10px 5px;
+        .modal.visible {
+            opacity: 1;
+            visibility: visible;
         }
         
-        .nav-item {
-            flex: 1;
+        .modal-content {
+            width: 90%;
+            max-width: 320px;
+            background-color: white;
+            border-radius: 24px;
+            padding: 24px;
+            transform: translateY(30px);
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal.visible .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            color: #999;
-            text-decoration: none;
+            margin-bottom: 20px;
         }
         
-        .nav-item i {
-            font-size: 22px;
-            margin-bottom: 5px;
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
         
-        .nav-item.active {
-            color: var(--primary-color);
+        .modal-close {
+            font-size: 24px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .date-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-family: inherit;
         }
     </style>
 </head>
 <body>
-    <div class="screen">
-        <div class="header">
+    <div class="device-frame">
+        <div class="notch"></div>
+        <div class="screen">
+            <!-- Status Bar -->
             <div class="status-bar">
                 <div class="time">9:41</div>
                 <div class="icons">
-                    <span>📶</span>
-                    <span>📡</span>
-                    <span>🔋</span>
-                </div>
-            </div>
-            <div class="notch"></div>
-            <div class="title-bar">
-                <div class="back-btn" onclick="history.back()">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-                <div class="page-title">时间推算</div>
-                <div style="width: 40px;"></div>
-            </div>
-        </div>
-        
-        <div class="content">
-            <div class="card">
-                <div class="card-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>时间计算器</span>
-                </div>
-                
-                <div class="input-group">
-                    <div class="input-label">选择起始日期</div>
-                    <div class="input-field">
-                        <div class="icon">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <input type="date" id="startDate" value="2023-05-15">
-                        <div class="clear-btn" id="clearStartDate">
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="date-selector">
-                    <div class="date-item" data-days="0">
-                        <div class="date-value">今天</div>
-                        <div class="date-label" id="today-date">5月15日</div>
-                    </div>
-                    <div class="date-item" data-days="1">
-                        <div class="date-value">明天</div>
-                        <div class="date-label" id="tomorrow-date">5月16日</div>
-                    </div>
-                    <div class="date-item" data-days="7">
-                        <div class="date-value">一周后</div>
-                        <div class="date-label" id="week-date">5月22日</div>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <div class="input-label">输入天数</div>
-                    <div class="input-field">
-                        <div class="icon">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <input type="number" id="dayCount" placeholder="输入间隔天数" min="1" value="30">
-                        <div class="clear-btn" id="clearDays">
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="button-group">
-                    <button class="button reset-button" id="resetButton">
-                        重置
-                    </button>
-                    <button class="button primary-button" id="calculateButton">
-                        计算结果
-                    </button>
-                </div>
-                
-                <div class="result-card" id="resultCard">
-                    <div class="result-title">
-                        <i class="fas fa-check-circle"></i>
-                        <span>计算结果</span>
-                    </div>
-                    
-                    <div class="result-content">
-                        <div class="result-dates">
-                            <div class="result-date">
-                                <div class="date-icon">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="date-detail">
-                                    <div class="date-value-lg" id="startDateDisplay">2023年5月15日</div>
-                                    <div class="date-label-sm">起始日期</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-date">
-                                <div class="date-icon">
-                                    <i class="fas fa-flag-checkered"></i>
-                                </div>
-                                <div class="date-detail">
-                                    <div class="date-value-lg" id="endDateDisplay">2023年6月14日</div>
-                                    <div class="date-label-sm">结束日期</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="divider">
-                            <div class="days-arrow">
-                                <i class="fas fa-arrow-down"></i>
-                            </div>
-                            <div class="divider-days" id="dayCountDisplay">30天</div>
-                            <div class="days-arrow">
-                                <i class="fas fa-arrow-down"></i>
-                            </div>
-                        </div>
-                    </div>
+                    <span><i class="fas fa-signal"></i></span>
+                    <span><i class="fas fa-wifi"></i></span>
+                    <span><i class="fas fa-battery-full"></i></span>
                 </div>
             </div>
             
-            <!-- 历史记录 -->
-            <div class="card history-card">
-                <div class="card-title">
-                    <i class="fas fa-history"></i>
-                    <span>历史记录</span>
+            <div class="content">
+                <!-- Header -->
+                <div class="header">
+                    <button class="back-button" onclick="window.history.back()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h1>时间推算</h1>
                 </div>
                 
-                <div class="history-list" id="historyList">
-                    <!-- 历史记录将由JS动态添加 -->
+                <!-- Calculator Card -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-calculator"></i>
+                        <span>日期计算</span>
+                    </div>
+                    
+                    <!-- Date Input -->
+                    <div class="form-group">
+                        <label class="form-label">起始日期</label>
+                        <div class="form-control" id="date-trigger">
+                            <div class="icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="date-display" id="start-date-display">选择日期</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Date Selector -->
+                    <div class="date-selector">
+                        <div class="date-option active" id="today-option">
+                            <div class="date-option-label">今天</div>
+                            <div class="date-option-value" id="today-value"></div>
+                        </div>
+                        <div class="date-option" id="tomorrow-option">
+                            <div class="date-option-label">明天</div>
+                            <div class="date-option-value" id="tomorrow-value"></div>
+                        </div>
+                        <div class="date-option" id="week-option">
+                            <div class="date-option-label">一周后</div>
+                            <div class="date-option-value" id="week-value"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Direction Selector -->
+                    <div class="form-group">
+                        <label class="form-label">计算方向</label>
+                        <div class="direction-selector">
+                            <div class="direction-option forward active" id="forward-option">
+                                <i class="fas fa-arrow-right"></i>
+                                <span>向后计算 (未来)</span>
+                            </div>
+                            <div class="direction-option backward" id="backward-option">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>向前计算 (过去)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Days Input -->
+                    <div class="form-group">
+                        <label class="form-label">间隔天数</label>
+                        <div class="form-control">
+                            <div class="icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <input type="number" id="days-input" value="30" min="1" placeholder="输入天数">
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" id="reset-btn">
+                            <i class="fas fa-undo"></i>重置
+                        </button>
+                        <button class="btn btn-primary" id="calculate-btn">
+                            <i class="fas fa-calculator"></i>计算
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Result Section (Initially Hidden) -->
+                <div class="result-section" id="result-section">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-check-circle"></i>
+                            <span>计算结果</span>
+                        </div>
+                        <div class="result-content">
+                            <div class="date-column">
+                                <div class="date-row">
+                                    <div class="date-badge start">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="date-info">
+                                        <div class="date-value" id="result-start-date"></div>
+                                        <div class="date-label">起始日期</div>
+                                    </div>
+                                </div>
+                                <div class="date-row">
+                                    <div class="date-badge end forward" id="result-end-badge">
+                                        <i class="fas fa-flag-checkered"></i>
+                                    </div>
+                                    <div class="date-info">
+                                        <div class="date-value" id="result-end-date"></div>
+                                        <div class="date-label">结果日期</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="days-indicator">
+                                <div class="days-line"></div>
+                                <div class="days-value" id="result-days-value"></div>
+                                <div class="days-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- History Section -->
+                    <div class="history-section-title">计算历史</div>
+                    <div class="history-list" id="history-list">
+                        <!-- History items will be added here by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
-        
-        
+    </div>
+    
+    <!-- Date Picker Modal -->
+    <div class="modal" id="date-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">选择日期</div>
+                <div class="modal-close" id="close-modal">&times;</div>
+            </div>
+            <input type="date" class="date-input" id="date-input">
+            <button class="btn btn-primary" id="confirm-date">确认</button>
+        </div>
     </div>
     
     <script>
-        // 日期格式化函数
+        // DOM Elements
+        const startDateDisplay = document.getElementById('start-date-display');
+        const dateOptions = document.querySelectorAll('.date-option');
+        const directionOptions = document.querySelectorAll('.direction-option');
+        const daysInput = document.getElementById('days-input');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultSection = document.getElementById('result-section');
+        const resultStartDate = document.getElementById('result-start-date');
+        const resultEndDate = document.getElementById('result-end-date');
+        const resultDaysValue = document.getElementById('result-days-value');
+        const resultEndBadge = document.getElementById('result-end-badge');
+        const historyList = document.getElementById('history-list');
+        
+        // Date picker elements
+        const dateTrigger = document.getElementById('date-trigger');
+        const dateModal = document.getElementById('date-modal');
+        const closeModal = document.getElementById('close-modal');
+        const dateInput = document.getElementById('date-input');
+        const confirmDate = document.getElementById('confirm-date');
+        
+        // Quick date options
+        const todayOption = document.getElementById('today-option');
+        const tomorrowOption = document.getElementById('tomorrow-option');
+        const weekOption = document.getElementById('week-option');
+        const todayValue = document.getElementById('today-value');
+        const tomorrowValue = document.getElementById('tomorrow-value');
+        const weekValue = document.getElementById('week-value');
+        
+        // State
+        let selectedDate = new Date();
+        let selectedDirection = 'forward';
+        let history = [];
+        
+        // Format date to string
         function formatDate(date, format = 'yyyy-MM-dd') {
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
@@ -646,176 +817,7 @@
             return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
         }
         
-        // 添加历史记录
-        function addHistory(startDate, endDate, days) {
-            const startDateObj = new Date(startDate);
-            const endDateObj = new Date(endDate);
-            
-            const historyList = document.getElementById('historyList');
-            const historyItem = document.createElement('div');
-            historyItem.className = 'history-item';
-            
-            // 当前时间
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const timeString = `${hours}:${minutes}`;
-            
-            historyItem.innerHTML = `
-                <div class="history-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <div class="history-details">
-                    <div class="history-dates">
-                        <span>${formatDate(startDateObj, 'yyyy年M月d日')}</span>
-                        <span class="history-arrow">→</span>
-                        <span>${formatDate(endDateObj, 'yyyy年M月d日')}</span>
-                    </div>
-                    <div class="history-time">${timeString}</div>
-                </div>
-                <div class="history-days">${days}天</div>
-            `;
-            
-            // 点击历史记录项加载该记录
-            historyItem.addEventListener('click', function() {
-                document.getElementById('startDate').value = formatDate(startDateObj);
-                document.getElementById('dayCount').value = days;
-                calculateResult();
-            });
-            
-            // 插入到列表最前面
-            if (historyList.firstChild) {
-                historyList.insertBefore(historyItem, historyList.firstChild);
-            } else {
-                historyList.appendChild(historyItem);
-            }
-            
-            // 只保留最近5条记录
-            if (historyList.children.length > 5) {
-                historyList.removeChild(historyList.lastChild);
-            }
-            
-            // 保存到localStorage
-            saveHistory(startDate, endDate, days);
-        }
-        
-        // 保存历史记录到localStorage
-        function saveHistory(startDate, endDate, days) {
-            let history = JSON.parse(localStorage.getItem('timeCalculatorHistory') || '[]');
-            
-            // 添加新记录
-            history.unshift({
-                startDate,
-                endDate,
-                days,
-                timestamp: new Date().getTime()
-            });
-            
-            // 只保留最近5条
-            if (history.length > 5) {
-                history = history.slice(0, 5);
-            }
-            
-            localStorage.setItem('timeCalculatorHistory', JSON.stringify(history));
-        }
-        
-        // 从localStorage加载历史记录
-        function loadHistory() {
-            const history = JSON.parse(localStorage.getItem('timeCalculatorHistory') || '[]');
-            const historyList = document.getElementById('historyList');
-            historyList.innerHTML = '';
-            
-            if (history.length === 0) {
-                const emptyMsg = document.createElement('div');
-                emptyMsg.style.textAlign = 'center';
-                emptyMsg.style.padding = '20px 0';
-                emptyMsg.style.color = '#999';
-                emptyMsg.textContent = '暂无计算记录';
-                historyList.appendChild(emptyMsg);
-                return;
-            }
-            
-            history.forEach(item => {
-                const startDateObj = new Date(item.startDate);
-                const endDateObj = new Date(item.endDate);
-                
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                
-                // 格式化时间
-                const recordDate = new Date(item.timestamp);
-                const hours = recordDate.getHours().toString().padStart(2, '0');
-                const minutes = recordDate.getMinutes().toString().padStart(2, '0');
-                const timeString = `${hours}:${minutes}`;
-                
-                historyItem.innerHTML = `
-                    <div class="history-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-dates">
-                            <span>${formatDate(startDateObj, 'yyyy年M月d日')}</span>
-                            <span class="history-arrow">→</span>
-                            <span>${formatDate(endDateObj, 'yyyy年M月d日')}</span>
-                        </div>
-                        <div class="history-time">${timeString}</div>
-                    </div>
-                    <div class="history-days">${item.days}天</div>
-                `;
-                
-                // 点击历史记录项加载该记录
-                historyItem.addEventListener('click', function() {
-                    document.getElementById('startDate').value = formatDate(startDateObj);
-                    document.getElementById('dayCount').value = item.days;
-                    calculateResult();
-                });
-                
-                historyList.appendChild(historyItem);
-            });
-        }
-        
-        // 计算结果
-        function calculateResult() {
-            // 获取起始日期和天数
-            const startDateInput = document.getElementById('startDate').value;
-            const days = parseInt(document.getElementById('dayCount').value, 10);
-            
-            if (!startDateInput || isNaN(days) || days <= 0) {
-                alert('请输入有效的起始日期和天数');
-                return;
-            }
-            
-            // 计算结束日期
-            const startDate = new Date(startDateInput);
-            const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + days);
-            
-            // 更新结果显示
-            document.getElementById('startDateDisplay').textContent = formatDate(startDate, 'yyyy年M月d日');
-            document.getElementById('endDateDisplay').textContent = formatDate(endDate, 'yyyy年M月d日');
-            document.getElementById('dayCountDisplay').textContent = `${days}天`;
-            
-            // 显示结果卡片
-            document.getElementById('resultCard').classList.add('visible');
-            
-            // 添加到历史记录
-            addHistory(startDateInput, formatDate(endDate), days);
-        }
-        
-        // 更新快速日期选择
-        function updateQuickDates() {
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(today.getDate() + 1);
-            const nextWeek = new Date(today);
-            nextWeek.setDate(today.getDate() + 7);
-            
-            document.getElementById('today-date').textContent = formatDate(today, 'M月d日');
-            document.getElementById('tomorrow-date').textContent = formatDate(tomorrow, 'M月d日');
-            document.getElementById('week-date').textContent = formatDate(nextWeek, 'M月d日');
-        }
-        
-        // 更新状态栏时间
+        // Update status bar time
         function updateStatusBarTime() {
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
@@ -823,61 +825,248 @@
             document.querySelector('.time').textContent = `${hours}:${minutes}`;
         }
         
-        // 初始化页面
-        document.addEventListener('DOMContentLoaded', function() {
-            // 更新状态栏时间
+        // Set the selected date
+        function setSelectedDate(date) {
+            selectedDate = date;
+            startDateDisplay.textContent = formatDate(date, 'yyyy年M月d日');
+            dateInput.value = formatDate(date);
+            
+            // Update quick options
+            dateOptions.forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Check if the selected date matches a quick option
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            
+            const dateToCheck = new Date(date);
+            dateToCheck.setHours(0, 0, 0, 0);
+            
+            if (dateToCheck.getTime() === today.getTime()) {
+                todayOption.classList.add('active');
+            } else if (dateToCheck.getTime() === tomorrow.getTime()) {
+                tomorrowOption.classList.add('active');
+            } else if (dateToCheck.getTime() === nextWeek.getTime()) {
+                weekOption.classList.add('active');
+            }
+        }
+        
+        // Perform date calculation
+        function calculateDate() {
+            const days = parseInt(daysInput.value, 10);
+            
+            if (isNaN(days) || days <= 0) {
+                alert('请输入有效的天数');
+                return;
+            }
+            
+            // Calculate the result date
+            const resultDate = new Date(selectedDate);
+            const dayChange = selectedDirection === 'forward' ? days : -days;
+            resultDate.setDate(resultDate.getDate() + dayChange);
+            
+            // Update result display
+            resultStartDate.textContent = formatDate(selectedDate, 'yyyy年M月d日');
+            resultEndDate.textContent = formatDate(resultDate, 'yyyy年M月d日');
+            resultDaysValue.textContent = `${days}天`;
+            
+            // Set end badge color based on direction
+            resultEndBadge.className = selectedDirection === 'forward' 
+                ? 'date-badge end forward' 
+                : 'date-badge end backward';
+            
+            // Show result section
+            resultSection.classList.add('visible');
+            
+            // Add to history
+            addToHistory(selectedDate, resultDate, days, selectedDirection);
+        }
+        
+        // Add calculation to history
+        function addToHistory(startDate, endDate, days, direction) {
+            const historyItem = {
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
+                days: days,
+                direction: direction,
+                timestamp: new Date()
+            };
+            
+            // Add to the beginning of history array
+            history.unshift(historyItem);
+            
+            // Keep only the last 5 items
+            if (history.length > 5) {
+                history.pop();
+            }
+            
+            // Update history display
+            updateHistoryDisplay();
+        }
+        
+        // Update history list display
+        function updateHistoryDisplay() {
+            // Clear current list
+            historyList.innerHTML = '';
+            
+            if (history.length === 0) {
+                historyList.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-history"></i>
+                        <div class="empty-message">暂无计算记录</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Add history items
+            history.forEach((item, index) => {
+                const isForward = item.direction === 'forward';
+                const directionClass = isForward ? 'forward' : 'backward';
+                const directionIcon = isForward ? 'fa-arrow-right' : 'fa-arrow-left';
+                
+                const hours = item.timestamp.getHours().toString().padStart(2, '0');
+                const minutes = item.timestamp.getMinutes().toString().padStart(2, '0');
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                historyItem.innerHTML = `
+                    <div class="history-icon ${directionClass}">
+                        <i class="fas ${directionIcon}"></i>
+                    </div>
+                    <div class="history-details">
+                        <div class="history-dates">
+                            <span class="history-date">${formatDate(item.startDate, 'yyyy年M月d日')}</span>
+                            <span class="history-arrow">→</span>
+                            <span class="history-date">${formatDate(item.endDate, 'yyyy年M月d日')}</span>
+                        </div>
+                        <div class="history-timestamp">${hours}:${minutes}</div>
+                    </div>
+                    <div class="history-days">${item.days}天</div>
+                `;
+                
+                historyList.appendChild(historyItem);
+            });
+        }
+        
+        // Reset form to initial state
+        function resetForm() {
+            const today = new Date();
+            setSelectedDate(today);
+            daysInput.value = '30';
+            
+            // Reset direction
+            directionOptions.forEach(option => {
+                option.classList.remove('active');
+            });
+            document.getElementById('forward-option').classList.add('active');
+            selectedDirection = 'forward';
+            
+            // Hide result section
+            resultSection.classList.remove('visible');
+        }
+        
+        // Show date picker modal
+        function showDateModal() {
+            dateModal.classList.add('visible');
+        }
+        
+        // Hide date picker modal
+        function hideDateModal() {
+            dateModal.classList.remove('visible');
+        }
+        
+        // Initialize
+        function initialize() {
+            // Set today's date
+            const today = new Date();
+            setSelectedDate(today);
+            
+            // Update quick date options
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+            
+            const nextWeek = new Date(today);
+            nextWeek.setDate(today.getDate() + 7);
+            
+            todayValue.textContent = formatDate(today, 'M月d日');
+            tomorrowValue.textContent = formatDate(tomorrow, 'M月d日');
+            weekValue.textContent = formatDate(nextWeek, 'M月d日');
+            
+            // Update status bar time
             updateStatusBarTime();
             setInterval(updateStatusBarTime, 60000);
             
-            // 初始化起始日期为今天
-            const today = new Date();
-            document.getElementById('startDate').value = formatDate(today);
+            // Add event listeners
+            setupEventListeners();
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Date picker trigger
+            dateTrigger.addEventListener('click', showDateModal);
             
-            // 更新快速日期选择
-            updateQuickDates();
+            // Close modal
+            closeModal.addEventListener('click', hideDateModal);
             
-            // 加载历史记录
-            loadHistory();
+            // Confirm date selection
+            confirmDate.addEventListener('click', () => {
+                const date = new Date(dateInput.value);
+                if (!isNaN(date.getTime())) {
+                    setSelectedDate(date);
+                    hideDateModal();
+                }
+            });
             
-            // 快速日期选择点击事件
-            const dateItems = document.querySelectorAll('.date-item');
-            dateItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const days = parseInt(this.getAttribute('data-days'), 10);
-                    const date = new Date();
-                    date.setDate(date.getDate() + days);
-                    document.getElementById('startDate').value = formatDate(date);
+            // Quick date options
+            dateOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const today = new Date();
+                    let date;
                     
-                    // 移除所有active类
-                    dateItems.forEach(di => di.classList.remove('active'));
-                    // 为当前项添加active类
-                    this.classList.add('active');
+                    if (option.id === 'today-option') {
+                        date = today;
+                    } else if (option.id === 'tomorrow-option') {
+                        date = new Date(today);
+                        date.setDate(today.getDate() + 1);
+                    } else if (option.id === 'week-option') {
+                        date = new Date(today);
+                        date.setDate(today.getDate() + 7);
+                    }
+                    
+                    setSelectedDate(date);
                 });
             });
             
-            // 清除按钮点击事件
-            document.getElementById('clearStartDate').addEventListener('click', function() {
-                document.getElementById('startDate').value = '';
-                // 清除active类
-                dateItems.forEach(di => di.classList.remove('active'));
+            // Direction options
+            directionOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    directionOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    selectedDirection = option.id === 'forward-option' ? 'forward' : 'backward';
+                });
             });
             
-            document.getElementById('clearDays').addEventListener('click', function() {
-                document.getElementById('dayCount').value = '';
-            });
+            // Calculate button
+            calculateBtn.addEventListener('click', calculateDate);
             
-            // 重置按钮点击事件
-            document.getElementById('resetButton').addEventListener('click', function() {
-                document.getElementById('startDate').value = formatDate(new Date());
-                document.getElementById('dayCount').value = '30';
-                document.getElementById('resultCard').classList.remove('visible');
-                // 清除active类
-                dateItems.forEach(di => di.classList.remove('active'));
-            });
-            
-            // 计算按钮点击事件
-            document.getElementById('calculateButton').addEventListener('click', calculateResult);
-        });
+            // Reset button
+            resetBtn.addEventListener('click', resetForm);
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
-</html> 
+</html>
+</html>
+</html>
+</html>
