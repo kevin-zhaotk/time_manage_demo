@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问题详情 - 脑筋急转弯</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .iphone-frame {
+            width: 428px; /* iPhone 13 Pro Max width */
+            height: 926px; /* iPhone 13 Pro Max height */
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: #f8f9fa;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 10;
+        }
+        .bottom-tab {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        .question-card {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            background: white;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+        }
+        .btn-primary {
+            background-color: #6366F1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+            background-color: #5253cc;
+        }
+        .reveal-container {
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            max-height: 0;
+        }
+        .reveal-container.show {
+            max-height: 1000px;
+        }
+        .related-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .related-card:active {
+            transform: scale(0.98);
+        }
+        .floating-buttons {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 10;
+        }
+        .animated-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="iphone-frame">
+        <div class="notch"></div>
+        <!-- Status Bar -->
+        <div class="h-10 flex justify-between items-center px-6 py-6 text-sm">
+            <span class="font-semibold">9:41</span>
+            <div class="flex space-x-2">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="pt-4 pb-2 px-6">
+            <div class="flex justify-between items-center">
+                <button class="flex items-center text-indigo-600" id="back-btn">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    <span>返回</span>
+                </button>
+                <button id="bookmark-btn" class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                    <i class="far fa-bookmark text-indigo-600"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="px-5 pt-2 pb-24 h-full overflow-y-auto">
+            <!-- Question Card -->
+            <div class="question-card mb-6">
+                <div class="gradient-bg p-6 text-white">
+                    <div class="mb-3">
+                        <span class="bg-white bg-opacity-30 px-3 py-1 rounded-full text-xs font-medium">中等难度</span>
+                    </div>
+                    <h1 class="text-2xl font-bold mb-3">什么东西有头无脚？</h1>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex space-x-2">
+                            <span class="text-white text-opacity-90 text-sm">
+                                <i class="fas fa-eye mr-1"></i> 1.2k
+                            </span>
+                            <span class="text-white text-opacity-90 text-sm">
+                                <i class="fas fa-thumbs-up mr-1"></i> 328
+                            </span>
+                        </div>
+                        <span class="text-white text-opacity-90 text-sm">
+                            <i class="fas fa-stopwatch mr-1"></i> 人均：45秒
+                        </span>
+                    </div>
+                    <p class="text-white text-opacity-90">想不通？别担心，尝试查看提示或答案！</p>
+                </div>
+                
+                <!-- Buttons Section -->
+                <div class="p-6 bg-white">
+                    <div class="flex justify-between mb-8">
+                        <button id="hint-btn" class="flex-1 mr-3 py-3 rounded-xl bg-indigo-50 text-indigo-600 font-medium">
+                            <i class="fas fa-lightbulb mr-2"></i> 查看提示
+                        </button>
+                        <button id="answer-btn" class="flex-1 py-3 rounded-xl bg-indigo-600 text-white font-medium">
+                            <i class="fas fa-key mr-2"></i> 查看答案
+                        </button>
+                    </div>
+                    
+                    <!-- Hint Container -->
+                    <div id="hint-container" class="reveal-container mb-6">
+                        <div class="p-4 bg-indigo-50 rounded-xl">
+                            <h3 class="font-semibold text-indigo-800 mb-2">提示</h3>
+                            <p class="text-indigo-700">想想我们生活中常见的物品，特别是形状或词语有"头"的东西。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Answer Container -->
+                    <div id="answer-container" class="reveal-container">
+                        <div class="p-4 bg-green-50 rounded-xl">
+                            <h3 class="font-semibold text-green-800 mb-2">答案</h3>
+                            <p class="text-green-700">床！床有床头，但是没有床脚（床有床腿或床脚，但我们常说床头，而不常说床脚）。</p>
+                            
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="text-sm text-green-600">
+                                    解题人数：1,243人
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-gray-500 flex items-center">
+                                        <i class="far fa-thumbs-up mr-1"></i>
+                                        <span>326</span>
+                                    </button>
+                                    <button class="text-gray-500 flex items-center">
+                                        <i class="far fa-thumbs-down mr-1"></i>
+                                        <span>24</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Discussion -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">讨论区</h2>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="mb-4 pb-4 border-b border-gray-100">
+                        <div class="flex items-start mb-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <span class="text-blue-600 font-medium">张</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h4 class="font-medium text-gray-800">张小明</h4>
+                                    <span class="ml-2 text-xs text-gray-500">2天前</span>
+                                </div>
+                                <p class="text-gray-700 mt-1">我一开始想到的是"钉子"，它也有头没有脚啊！</p>
+                                <div class="flex items-center mt-2">
+                                    <button class="text-gray-500 text-sm flex items-center mr-4">
+                                        <i class="far fa-thumbs-up mr-1"></i>
+                                        <span>14</span>
+                                    </button>
+                                    <button class="text-gray-500 text-sm flex items-center">
+                                        <i class="far fa-comment mr-1"></i>
+                                        <span>回复</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Reply -->
+                        <div class="flex items-start ml-13 pl-10">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                <span class="text-purple-600 font-medium text-sm">李</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h4 class="font-medium text-gray-800">李华</h4>
+                                    <span class="ml-2 text-xs text-gray-500">1天前</span>
+                                </div>
+                                <p class="text-gray-700 mt-1">确实，钉子也是个正确答案！而且我还想到了大蒜，也是有头没脚。</p>
+                                <div class="flex items-center mt-2">
+                                    <button class="text-gray-500 text-sm flex items-center mr-4">
+                                        <i class="far fa-thumbs-up mr-1"></i>
+                                        <span>7</span>
+                                    </button>
+                                    <button class="text-gray-500 text-sm flex items-center">
+                                        <i class="far fa-comment mr-1"></i>
+                                        <span>回复</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <span class="text-green-600 font-medium">王</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h4 class="font-medium text-gray-800">王小强</h4>
+                                    <span class="ml-2 text-xs text-gray-500">6小时前</span>
+                                </div>
+                                <p class="text-gray-700 mt-1">我觉得这道题最妙的地方在于它利用了我们对词语的习惯用法，床头和床腿，而不是床脚。很有意思！</p>
+                                <div class="flex items-center mt-2">
+                                    <button class="text-gray-500 text-sm flex items-center mr-4">
+                                        <i class="far fa-thumbs-up mr-1"></i>
+                                        <span>9</span>
+                                    </button>
+                                    <button class="text-gray-500 text-sm flex items-center">
+                                        <i class="far fa-comment mr-1"></i>
+                                        <span>回复</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add Comment -->
+                    <div class="flex items-center mt-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div class="flex-grow relative">
+                            <input type="text" placeholder="写下你的想法..." class="w-full py-2 px-4 bg-gray-100 rounded-full text-gray-700 focus:outline-none">
+                            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-indigo-600">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Questions -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">相关题目</h2>
+                <div class="space-y-4">
+                    <a href="brainstorm-detail.html?id=4" class="block">
+                        <div class="related-card bg-white p-4 flex items-center shadow-sm">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-puzzle-piece text-blue-500"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="font-semibold text-gray-800">什么门永远关不上？</h3>
+                                <div class="flex items-center mt-1">
+                                    <span class="text-xs px-2 py-1 bg-blue-50 text-blue-600 rounded-full mr-2">相似题目</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+                    
+                    <a href="brainstorm-detail.html?id=5" class="block">
+                        <div class="related-card bg-white p-4 flex items-center shadow-sm">
+                            <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-question text-purple-500"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="font-semibold text-gray-800">什么东西晚上才会长出来？</h3>
+                                <div class="flex items-center mt-1">
+                                    <span class="text-xs px-2 py-1 bg-purple-50 text-purple-600 rounded-full mr-2">中等难度</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Buttons -->
+        <div class="floating-buttons flex flex-col space-y-4">
+            <button class="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center">
+                <i class="fas fa-share-alt text-indigo-600"></i>
+            </button>
+            <button id="next-btn" class="w-12 h-12 rounded-full bg-indigo-600 shadow-lg flex items-center justify-center animated-pulse">
+                <i class="fas fa-arrow-right text-white"></i>
+            </button>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="bottom-tab h-20 flex justify-around items-center">
+            <a href="brainstorm-home.html" class="flex flex-col items-center">
+                <i class="fas fa-home text-gray-400"></i>
+                <span class="text-xs mt-1 text-gray-400">首页</span>
+            </a>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-compass text-gray-400"></i>
+                <span class="text-xs mt-1 text-gray-400">发现</span>
+            </div>
+            <a href="brainstorm-favorites.html" class="flex flex-col items-center">
+                <i class="fas fa-bookmark text-gray-400"></i>
+                <span class="text-xs mt-1 text-gray-400">收藏</span>
+            </a>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-cog text-gray-400"></i>
+                <span class="text-xs mt-1 text-gray-400">设置</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 返回按钮
+        document.getElementById('back-btn').addEventListener('click', function() {
+            window.location.href = 'brainstorm-home.html';
+        });
+        
+        // 收藏按钮
+        const bookmarkBtn = document.getElementById('bookmark-btn');
+        bookmarkBtn.addEventListener('click', function() {
+            const icon = bookmarkBtn.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                // 显示收藏成功提示
+                showToast('已添加到收藏');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                // 显示取消收藏提示
+                showToast('已取消收藏');
+            }
+        });
+        
+        // 提示按钮
+        document.getElementById('hint-btn').addEventListener('click', function() {
+            const hintContainer = document.getElementById('hint-container');
+            hintContainer.classList.toggle('show');
+            
+            // 如果答案已经显示，点击提示按钮会关闭答案
+            if (document.getElementById('answer-container').classList.contains('show')) {
+                document.getElementById('answer-container').classList.remove('show');
+            }
+        });
+        
+        // 答案按钮
+        document.getElementById('answer-btn').addEventListener('click', function() {
+            const answerContainer = document.getElementById('answer-container');
+            answerContainer.classList.toggle('show');
+            
+            // 显示答案的同时也显示提示
+            if (!document.getElementById('hint-container').classList.contains('show')) {
+                document.getElementById('hint-container').classList.add('show');
+            }
+        });
+        
+        // 下一题按钮
+        document.getElementById('next-btn').addEventListener('click', function() {
+            // 随机加载另一道题目
+            const questions = [
+                { 
+                    title: "什么门永远关不上？", 
+                    hint: "提示：这个词有很多含义", 
+                    answer: "答案：问题，因为问题永远有门(们)，但问题的门永远关不上。"
+                },
+                { 
+                    title: "什么东西晚上才会长出来？", 
+                    hint: "提示：夜晚才能看见", 
+                    answer: "答案：星星。白天看不见，只有到了晚上才会'长'出来。" 
+                },
+                { 
+                    title: "什么铅笔不能写字？", 
+                    hint: "提示：它其实不是文具", 
+                    answer: "答案：眉笔。虽然叫'笔'，但不是用来写字的。" 
+                }
+            ];
+            
+            const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+            
+            // 更新问题和答案
+            document.querySelector('h1').textContent = randomQuestion.title;
+            document.querySelector('#hint-container p').textContent = randomQuestion.hint;
+            document.querySelector('#answer-container p').textContent = randomQuestion.answer;
+            
+            // 重置显示状态
+            document.getElementById('hint-container').classList.remove('show');
+            document.getElementById('answer-container').classList.remove('show');
+            
+            // 回到顶部
+            document.querySelector('.iphone-frame').scrollTop = 0;
+        });
+        
+        // 显示消息提示
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-1/4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg text-sm';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 

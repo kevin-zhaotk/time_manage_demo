@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十二时辰 - 时间工具集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-primary': '#3b82f6',
+                        'app-secondary': '#f3f4f6',
+                        'app-accent': '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .iphone-frame {
+            width: 428px; /* iPhone 13 Pro Max width */
+            height: 926px; /* iPhone 13 Pro Max height */
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: #f8f9fa;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 10;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        .status-bar {
+            height: 44px;
+            padding-top: 10px;
+            position: relative;
+            z-index: 20;
+        }
+        .time-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .time-card.active {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+        .time-card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #f97316, #f59e0b);
+        }
+        .radial-progress {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto;
+        }
+        .progress-circle {
+            fill: none;
+            stroke: #f97316;
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+        .progress-background {
+            fill: none;
+            stroke: #fed7aa;
+            stroke-width: 6;
+        }
+        .clock-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .chinese-symbol {
+            font-family: "Songti SC", "SimSun", serif;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
+    <div class="iphone-frame">
+        <div class="notch"></div>
+        <!-- iOS Status Bar -->
+        <div class="status-bar flex justify-between items-center px-6 text-black">
+            <div class="text-sm font-semibold">9:41</div>
+            <div class="flex space-x-1">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <header class="px-6 pt-2 pb-4 flex items-center">
+            <a href="tools.html" class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm mr-4">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">十二时辰</h1>
+                <p class="text-gray-500 text-sm">传统计时方式，了解现代时间与古代时辰的对应关系</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="px-6 pb-20 overflow-y-auto h-full" style="max-height: calc(100% - 180px);">
+            <!-- Current Time Circle -->
+            <div class="glass-card rounded-3xl p-6 mb-6 shadow-sm">
+                <div class="radial-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="progress-background" cx="50" cy="50" r="45" />
+                        <circle class="progress-circle" cx="50" cy="50" r="45" id="progressCircle" style="stroke-dasharray: 283; stroke-dashoffset: 141.5;" />
+                    </svg>
+                    <div class="clock-face">
+                        <div class="chinese-symbol text-5xl font-normal text-orange-600 mb-2" id="currentTimeChi">未</div>
+                        <div class="text-xl font-semibold text-gray-800 mb-1" id="currentTime">13:25</div>
+                        <div class="text-sm text-gray-500">
+                            <span id="currentTimeName">未时</span> · <span id="currentTimeRange">13:00 - 15:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Time Details -->
+            <div class="glass-card rounded-3xl p-6 mb-6 shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">当前时辰详情</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-sun text-orange-500"></i>
+                            </div>
+                            <span class="text-gray-700">时辰属相</span>
+                        </div>
+                        <span class="text-gray-800 font-medium" id="currentAnimal">羊</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-yin-yang text-amber-500"></i>
+                            </div>
+                            <span class="text-gray-700">五行属性</span>
+                        </div>
+                        <span class="text-gray-800 font-medium" id="currentElement">土</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-directions text-yellow-500"></i>
+                            </div>
+                            <span class="text-gray-700">方位</span>
+                        </div>
+                        <span class="text-gray-800 font-medium" id="currentDirection">西南</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Time Periods -->
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">十二时辰对照表</h3>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="子">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">子</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">子时 (鼠)</h4>
+                            <p class="text-xs text-gray-500">23:00 - 01:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="丑">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">丑</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">丑时 (牛)</h4>
+                            <p class="text-xs text-gray-500">01:00 - 03:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="寅">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">寅</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">寅时 (虎)</h4>
+                            <p class="text-xs text-gray-500">03:00 - 05:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="卯">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">卯</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">卯时 (兔)</h4>
+                            <p class="text-xs text-gray-500">05:00 - 07:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="辰">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">辰</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">辰时 (龙)</h4>
+                            <p class="text-xs text-gray-500">07:00 - 09:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="巳">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">巳</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">巳时 (蛇)</h4>
+                            <p class="text-xs text-gray-500">09:00 - 11:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="午">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">午</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">午时 (马)</h4>
+                            <p class="text-xs text-gray-500">11:00 - 13:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="未">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">未</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">未时 (羊)</h4>
+                            <p class="text-xs text-gray-500">13:00 - 15:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="申">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">申</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">申时 (猴)</h4>
+                            <p class="text-xs text-gray-500">15:00 - 17:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="酉">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">酉</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">酉时 (鸡)</h4>
+                            <p class="text-xs text-gray-500">17:00 - 19:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="戌">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">戌</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">戌时 (狗)</h4>
+                            <p class="text-xs text-gray-500">19:00 - 21:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-card bg-white p-4 rounded-xl shadow-sm" data-time="亥">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="chinese-symbol text-indigo-600 text-lg">亥</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">亥时 (猪)</h4>
+                            <p class="text-xs text-gray-500">21:00 - 23:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="glass-card rounded-3xl p-6 mb-6 shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">时辰小知识</h3>
+                <div class="text-gray-600">
+                    <p class="mb-3">十二时辰是中国古代计时方式，从子时开始，每一时辰相当于现代的两小时。</p>
+                    <p class="mb-3">古人将一昼夜平均划分为十二个时辰，并用十二地支来表示：子、丑、寅、卯、辰、巳、午、未、申、酉、戌、亥。</p>
+                    <p>每个时辰都有其对应的生肖和五行属性，在传统文化中有着深厚的象征意义。</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Tab Bar -->
+        <div class="fixed bottom-0 left-0 right-0 glass-card h-24 pt-2 pb-8 px-6">
+            <div class="flex justify-around items-center h-full">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-gray-400 text-xl"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-400 mt-1">倒数日</span>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-tasks text-gray-400 text-xl"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-400 mt-1">待办事项</span>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-app-primary flex items-center justify-center">
+                        <i class="fas fa-clock text-white text-xl"></i>
+                    </div>
+                    <span class="text-xs font-medium text-app-primary mt-1">时间工具</span>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-cog text-gray-400 text-xl"></i>
+                    </div>
+                    <span class="text-xs font-medium text-gray-400 mt-1">设置</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 十二时辰数据
+        const chineseTimeData = [
+            { 
+                chinese: "子", 
+                start: 23, 
+                end: 1, 
+                animal: "鼠", 
+                element: "水", 
+                direction: "正北" 
+            },
+            { 
+                chinese: "丑", 
+                start: 1, 
+                end: 3, 
+                animal: "牛", 
+                element: "土", 
+                direction: "东北" 
+            },
+            { 
+                chinese: "寅", 
+                start: 3, 
+                end: 5, 
+                animal: "虎", 
+                element: "木", 
+                direction: "东北" 
+            },
+            { 
+                chinese: "卯", 
+                start: 5, 
+                end: 7, 
+                animal: "兔", 
+                element: "木", 
+                direction: "正东" 
+            },
+            { 
+                chinese: "辰", 
+                start: 7, 
+                end: 9, 
+                animal: "龙", 
+                element: "土", 
+                direction: "东南" 
+            },
+            { 
+                chinese: "巳", 
+                start: 9, 
+                end: 11, 
+                animal: "蛇", 
+                element: "火", 
+                direction: "东南" 
+            },
+            { 
+                chinese: "午", 
+                start: 11, 
+                end: 13, 
+                animal: "马", 
+                element: "火", 
+                direction: "正南" 
+            },
+            { 
+                chinese: "未", 
+                start: 13, 
+                end: 15, 
+                animal: "羊", 
+                element: "土", 
+                direction: "西南" 
+            },
+            { 
+                chinese: "申", 
+                start: 15, 
+                end: 17, 
+                animal: "猴", 
+                element: "金", 
+                direction: "西南" 
+            },
+            { 
+                chinese: "酉", 
+                start: 17, 
+                end: 19, 
+                animal: "鸡", 
+                element: "金", 
+                direction: "正西" 
+            },
+            { 
+                chinese: "戌", 
+                start: 19, 
+                end: 21, 
+                animal: "狗", 
+                element: "土", 
+                direction: "西北" 
+            },
+            { 
+                chinese: "亥", 
+                start: 21, 
+                end: 23, 
+                animal: "猪", 
+                element: "水", 
+                direction: "西北" 
+            }
+        ];
+
+        // 根据当前时间获取对应的时辰
+        function getCurrentChineseTime() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            // 格式化现代时间显示
+            const timeStr = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+            
+            // 查找当前时辰
+            let currentTime = null;
+            
+            for (const timeData of chineseTimeData) {
+                if (timeData.start < timeData.end) {
+                    // 普通情况：开始时间小于结束时间
+                    if (hour >= timeData.start && hour < timeData.end) {
+                        currentTime = timeData;
+                        break;
+                    }
+                } else {
+                    // 跨日情况：子时 (23:00 - 01:00)
+                    if ((hour >= timeData.start) || (hour < timeData.end)) {
+                        currentTime = timeData;
+                        break;
+                    }
+                }
+            }
+            
+            // 计算进度百分比
+            let progress = 0;
+            if (currentTime) {
+                let totalMinutesInPeriod = 120; // 每个时辰2小时 = 120分钟
+                let currentMinute = minute;
+                
+                if (hour === currentTime.start) {
+                    currentMinute += 0;
+                } else if (hour < currentTime.end || (currentTime.end === 1 && hour === 0)) {
+                    currentMinute += 60;
+                } else {
+                    currentMinute = 0;
+                }
+                
+                progress = (currentMinute + seconds / 60) / totalMinutesInPeriod;
+            }
+            
+            return {
+                modernTime: timeStr,
+                chineseTime: currentTime,
+                progress: progress
+            };
+        }
+
+        // 更新页面上的时辰信息
+        function updateTimeDisplay() {
+            const { modernTime, chineseTime, progress } = getCurrentChineseTime();
+            
+            // 更新时钟显示
+            document.getElementById('currentTime').textContent = modernTime;
+            
+            if (chineseTime) {
+                // 更新圆形进度条
+                const progressCircle = document.getElementById('progressCircle');
+                const circumference = 2 * Math.PI * 45; // 2πr, r = 45
+                const offset = circumference * (1 - progress);
+                progressCircle.style.strokeDasharray = circumference;
+                progressCircle.style.strokeDashoffset = offset;
+                
+                // 更新时辰信息
+                document.getElementById('currentTimeChi').textContent = chineseTime.chinese;
+                document.getElementById('currentTimeName').textContent = `${chineseTime.chinese}时`;
+                
+                // 格式化时间范围
+                let startHour = chineseTime.start.toString().padStart(2, '0');
+                let endHour = chineseTime.end.toString().padStart(2, '0');
+                document.getElementById('currentTimeRange').textContent = `${startHour}:00 - ${endHour}:00`;
+                
+                // 更新属性信息
+                document.getElementById('currentAnimal').textContent = chineseTime.animal;
+                document.getElementById('currentElement').textContent = chineseTime.element;
+                document.getElementById('currentDirection').textContent = chineseTime.direction;
+                
+                // 高亮显示当前时辰卡片
+                const timeCards = document.querySelectorAll('.time-card');
+                timeCards.forEach(card => {
+                    if (card.dataset.time === chineseTime.chinese) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // 初始化页面并定期更新
+        updateTimeDisplay();
+        setInterval(updateTimeDisplay, 1000);
+        
+        // 点击时辰卡片显示详情
+        const timeCards = document.querySelectorAll('.time-card');
+        timeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const chineseChar = card.dataset.time;
+                const timeData = chineseTimeData.find(t => t.chinese === chineseChar);
+                
+                if (timeData) {
+                    // 更新详情显示
+                    document.getElementById('currentTimeChi').textContent = timeData.chinese;
+                    document.getElementById('currentTimeName').textContent = `${timeData.chinese}时`;
+                    
+                    // 格式化时间范围
+                    let startHour = timeData.start.toString().padStart(2, '0');
+                    let endHour = timeData.end.toString().padStart(2, '0');
+                    document.getElementById('currentTimeRange').textContent = `${startHour}:00 - ${endHour}:00`;
+                    
+                    document.getElementById('currentAnimal').textContent = timeData.animal;
+                    document.getElementById('currentElement').textContent = timeData.element;
+                    document.getElementById('currentDirection').textContent = timeData.direction;
+                    
+                    // 切换高亮
+                    timeCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
