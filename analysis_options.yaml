@@ -1,0 +1,36 @@
+# Flutter代码分析配置文件
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+linter:
+  rules:
+    # 启用推荐的lint规则
+    - prefer_single_quotes
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - prefer_const_declarations
+    - prefer_final_locals
+    - unnecessary_const
+    - unnecessary_new
+    - avoid_print
+    - prefer_typing_uninitialized_variables
+    - prefer_collection_literals
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - avoid_returning_null_for_void
+    - avoid_unnecessary_containers
+    - sized_box_for_whitespace
+    - use_key_in_widget_constructors
+    - prefer_const_constructors_in_immutables
+    - sort_child_properties_last
+    
+    # 禁用某些过于严格的规则
+    # - avoid_web_libraries_in_flutter

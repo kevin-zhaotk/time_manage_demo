@@ -1,0 +1,70 @@
+name: calendar_converter
+description: 公历农历日期转换App - 高保真Flutter实现
+
+# App版本信息
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 状态管理
+  provider: ^6.1.1
+  
+  # UI组件
+  cupertino_icons: ^1.0.6
+  
+  # 日期处理
+  intl: ^0.19.0
+  
+  # 本地存储
+  shared_preferences: ^2.2.2
+  
+  # 农历转换库（如果需要真实转换功能）
+  # lunar: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # 代码分析和格式化
+  flutter_lints: ^3.0.0
+
+# Flutter配置
+flutter:
+  uses-material-design: true
+
+  # 字体配置（模拟SF Pro Display）
+  fonts:
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/SFProDisplay-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SFProDisplay-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SFProDisplay-Semibold.ttf
+          weight: 600
+        - asset: assets/fonts/SFProDisplay-Bold.ttf
+          weight: 700
+
+  # 图片资源
+  assets:
+    - assets/images/
+    - assets/icons/
+
+# iOS配置
+flutter_ios:
+  info_plist:
+    CFBundleDisplayName: 日历转换
+    CFBundleName: CalendarConverter
+    CFBundleIdentifier: com.example.calendar_converter
+    CFBundleVersion: 1.0.0
+    CFBundleShortVersionString: 1.0.0
+
+# Android配置
+flutter_android:
+  app_name: 日历转换
+  package_name: com.example.calendar_converter
