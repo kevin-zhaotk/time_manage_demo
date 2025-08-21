@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询记录</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black">
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="status-left">9:41</div>
+                <div class="status-right">
+                    <i class="fas fa-signal text-sm"></i>
+                    <i class="fas fa-wifi text-sm"></i>
+                    <i class="fas fa-battery-three-quarters text-sm"></i>
+                </div>
+            </div>
+
+            <!-- 主内容 -->
+            <div class="main-content">
+                <!-- 标题栏 -->
+                <div class="flex items-center justify-between pt-6 pb-4">
+                    <a href="home.html" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
+                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    </a>
+                    <h1 class="title-medium">查询记录</h1>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-red-50">
+                        <i class="fas fa-trash text-red-500"></i>
+                    </button>
+                </div>
+
+                <!-- 搜索栏 -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" placeholder="搜索历史记录..." 
+                               class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-lg border-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- 收藏夹 -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="title-medium">收藏夹</h3>
+                        <i class="fas fa-star text-yellow-500"></i>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-center justify-between p-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-birthday-cake text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">我的生日</p>
+                                    <p class="text-sm text-gray-500">1995年8月15日 → 乙亥年七月二十</p>
+                                </div>
+                            </div>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                <i class="fas fa-chevron-right text-blue-500 text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="flex items-center justify-between p-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-heart text-red-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">结婚纪念日</p>
+                                    <p class="text-sm text-gray-500">2020年10月1日 → 庚子年八月十五</p>
+                                </div>
+                            </div>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                <i class="fas fa-chevron-right text-blue-500 text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最近查询 -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="title-medium">最近查询</h3>
+                        <span class="text-sm text-gray-500">今天</span>
+                    </div>
+
+                    <!-- 查询记录列表 -->
+                    <div class="space-y-3">
+                        <div class="card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-calendar text-blue-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">2024年1月15日</p>
+                                        <p class="text-sm text-gray-500">腊月初五 · 甲辰龙年</p>
+                                        <p class="text-xs text-gray-400">15:30</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-50">
+                                        <i class="fas fa-star text-yellow-500 text-sm"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                        <i class="fas fa-redo text-blue-500 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-moon text-purple-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">腊月初一</p>
+                                        <p class="text-sm text-gray-500">2024年1月11日 · 星期四</p>
+                                        <p class="text-xs text-gray-400">14:25</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50">
+                                        <i class="fas fa-star text-gray-400 text-sm"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                        <i class="fas fa-redo text-blue-500 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-calendar-alt text-green-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">2024年2月10日</p>
+                                        <p class="text-sm text-gray-500">正月初一 · 春节</p>
+                                        <p class="text-xs text-gray-400">13:45</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50">
+                                        <i class="fas fa-star text-gray-400 text-sm"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                        <i class="fas fa-redo text-blue-500 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 昨天的记录 -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="title-medium">昨天</h3>
+                        <span class="text-sm text-gray-500">1月14日</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-sun text-orange-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">腊月初四</p>
+                                        <p class="text-sm text-gray-500">2024年1月14日 · 星期日</p>
+                                        <p class="text-xs text-gray-400">19:20</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50">
+                                        <i class="fas fa-star text-gray-400 text-sm"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                        <i class="fas fa-redo text-blue-500 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-leaf text-teal-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">2024年1月6日</p>
+                                        <p class="text-sm text-gray-500">冬月廿五 · 小寒</p>
+                                        <p class="text-xs text-gray-400">16:15</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50">
+                                        <i class="fas fa-star text-gray-400 text-sm"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50">
+                                        <i class="fas fa-redo text-blue-500 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加载更多 -->
+                <div class="text-center py-6">
+                    <button class="text-blue-500 font-medium">
+                        <i class="fas fa-chevron-down mr-2"></i>
+                        加载更多记录
+                    </button>
+                </div>
+            </div>
+
+            <!-- 底部导航 -->
+            <div class="bottom-nav">
+                <a href="home.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>主页</span>
+                </a>
+                <a href="converter.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>转换</span>
+                </a>
+                <a href="history.html" class="nav-item active">
+                    <i class="fas fa-history"></i>
+                    <span>记录</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>设置</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 收藏功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const starButtons = document.querySelectorAll('.fa-star');
+            
+            starButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.classList.toggle('text-yellow-500');
+                    this.classList.toggle('text-gray-400');
+                    
+                    // 添加动画效果
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+
+            // 页面加载动画
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>

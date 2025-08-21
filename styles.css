@@ -1,0 +1,217 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* iPhone 13 Pro Max 模拟器 */
+.phone-container {
+    width: 428px;
+    height: 926px;
+    background: #000;
+    border-radius: 39px;
+    padding: 2px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #F2F2F7;
+    border-radius: 37px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 状态栏 */
+.status-bar {
+    height: 47px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #000;
+    position: relative;
+    z-index: 100;
+}
+
+.status-left {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 17px;
+}
+
+/* 主内容区域 */
+.main-content {
+    height: calc(100% - 47px - 83px);
+    overflow-y: auto;
+    padding: 0 16px;
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    height: 83px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #8E8E93;
+    font-size: 10px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-item.active {
+    color: #007AFF;
+}
+
+.nav-item i {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+/* 卡片样式 */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-large {
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+/* 按钮样式 */
+.btn-primary {
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0056CC;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #F2F2F7;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #E5E5EA;
+}
+
+/* 文字样式 */
+.title-large {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #000;
+}
+
+.title-medium {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+}
+
+.body-text {
+    font-size: 17px;
+    line-height: 1.4;
+    color: #000;
+}
+
+.caption-text {
+    font-size: 13px;
+    color: #8E8E93;
+}
+
+/* 动画 */
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 渐变背景 */
+.gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.lunar-gradient {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+    .phone-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+    }
+    
+    .phone-screen {
+        border-radius: 0;
+    }
+    
+    body {
+        padding: 0;
+    }
+}

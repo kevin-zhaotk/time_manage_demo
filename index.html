@@ -1,344 +1,331 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>时间管理工具 - 原型展示</title>
+    <title>日历转换App - 原型预览</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #f5f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .device-frame {
-            width: 430px;
-            height: 932px;
-            border-radius: 55px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 14px solid #1a1a1a;
-            background-color: #1a1a1a;
+        .preview-card {
+            transition: all 0.3s ease;
         }
-        .device-notch {
-            position: absolute;
-            width: 160px;
-            height: 35px;
-            background-color: #1a1a1a;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 18px;
-            z-index: 100;
+        .preview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        iframe {
-            border: none;
+        .phone-preview {
+            width: 200px;
+            height: 433px;
+            background: #000;
+            border-radius: 20px;
+            padding: 2px;
+            margin: 0 auto;
+        }
+        .phone-screen-preview {
             width: 100%;
             height: 100%;
-            background-color: white;
+            background: #F2F2F7;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
     </style>
 </head>
-<body class="p-8">
-    <div class="container mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-8">时间管理工具 - 原型展示</h1>
-        <p class="text-center mb-8 text-gray-600">以下是基于iPhone 13 Pro Max尺寸设计的无边框界面原型</p>
-        
-        <div class="flex flex-wrap justify-center gap-12">
-            <!-- 倒数日 Tab -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">Tab 1: 倒数日</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="countdown.html" title="倒数日"></iframe>
+<body class="bg-gray-50">
+    <!-- 头部 -->
+    <header class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold mb-4">📱 日历转换App</h1>
+            <p class="text-xl opacity-90 mb-6">公历农历互转 · 高保真原型设计</p>
+            <div class="flex justify-center space-x-6 text-sm">
+                <div class="flex items-center">
+                    <i class="fas fa-mobile-alt mr-2"></i>
+                    iPhone 13 Pro Max
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-palette mr-2"></i>
+                    iOS设计规范
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-code mr-2"></i>
+                    HTML + CSS
                 </div>
             </div>
-            
-            <!-- 待办事项 Tab -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">Tab 2: 待办事项</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="todo.html" title="待办事项"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">添加待办弹窗</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="add-todo-modal.html" title="添加待办"></iframe>
-                </div>
-            </div>
-            
-            <!-- 时间工具集 Tab -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">Tab 3: 时间工具集</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="tools.html" title="时间工具集"></iframe>
-                </div>
-            </div>
-            <!-- 时间工具集 Tab -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">Tab 3: 时间工具集-新版</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="tools-new.html" title="时间工具集-新版"></iframe>
-                </div>
-            </div>
-            
-            <!-- 设置 Tab -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">Tab 4: 设置</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="settings.html" title="设置"></iframe>
-                </div>
-            </div>
-            
-            <!-- 计时器工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 计时器</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="timer.html" title="计时器"></iframe>
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 计时器</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="timer-1.html" title="计时器"></iframe>
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 计时器-时间选择器弹窗</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="time-picker.html" title="计时器-时间选择器弹窗"></iframe>
-                </div>
-            </div>
-            
-            <!-- 番茄时钟工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 番茄时钟</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="pomodoro.html" title="番茄时钟"></iframe>
-                </div>
-            </div>
-            <!-- 番茄时钟工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 番茄时钟设置</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="pomodoro-settings.html" title="番茄时钟设置"></iframe>
-                </div>
-            </div>
-            
-
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 番茄时钟</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="pomodoro-1.html" title="番茄时钟"></iframe>
-                </div>
-            </div>
-            
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 时间差计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="time-diff.html" title="时间差计算"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具: 时间差计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="time-diff-1.html" title="时间差计算"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:狗狗年龄计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="dog-age.html" title="狗狗年龄计算"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:汉语字典</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="chinese-dict.html" title="汉语字典"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:二维码生成</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="qr-generator.html" title="二维码生成"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:亲戚关系计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="relative-calc.html" title="亲戚关系计算"></iframe>
-                </div>
-            </div>
-
-             <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:时间计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="time-calculator.html" title="时间计算"></iframe>
-                </div>
-            </div>
-
-
-             <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:工作日计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="workday-calc.html" title="工作日计算"></iframe>
-                </div>
-            </div>
-
-             <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:世界时钟</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="worldclock.html" title="世界时钟"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:金额大写</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="amount-convert.html" title="金额大写"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:猫年龄计算</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="cat-age.html" title="猫年龄计算"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:繁简体转换</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="chinese-convert.html" title="繁简体转换"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:成语词典</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="idiom-dict.html" title="成语词典"></iframe>
-                </div>
-            </div>
-
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:成语词典</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="idiom-dict.html" title="成语词典"></iframe>
-                </div>
-            </div>
-
-            <!-- 时间差计算工具页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:12时辰</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="time-system.html" title="12时辰"></iframe>
-                </div>
-            </div>
-
-            <!-- 二维码扫描页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:二维码扫描</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="qr_prepare.html" title="二维码扫描"></iframe>
-                </div>
-            </div>
-
-            <!-- 二维码扫描页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:二维码扫描结果</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="qr_result.html" title="二维码扫描结果"></iframe>
-                </div>
-            </div>
-
-            <!-- 二维码扫描页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:垃圾分类-搜索</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="trash-search.html" title="垃圾分类-搜索"></iframe>
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:垃圾分类-详情</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="trash-detail.html" title="垃圾分类-详情"></iframe>
-                </div>
-            </div>
-
-            <!-- 八字命格页面 -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:八字</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="bazi-chart.html" title="八字"></iframe>
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">工具:八字-详解</h2>
-                <div class="device-frame">
-                    <div class="device-notch"></div>
-                    <iframe src="bazi-analysis.html" title="八字-详解"></iframe>
-                </div>
-            </div>
-
-            
-            
         </div>
-    </div>
+    </header>
+
+    <!-- 功能介绍 -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">核心功能</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">专业的公历农历转换工具，融合传统文化与现代设计</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-exchange-alt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">双向转换</h3>
+                    <p class="text-gray-600 text-sm">公历农历互相转换</p>
+                </div>
+                
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">节气信息</h3>
+                    <p class="text-gray-600 text-sm">二十四节气详情</p>
+                </div>
+                
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-gift text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">传统节日</h3>
+                    <p class="text-gray-600 text-sm">重要节日提醒</p>
+                </div>
+                
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-history text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">历史记录</h3>
+                    <p class="text-gray-600 text-sm">查询记录管理</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 界面预览 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">界面预览</h2>
+                <p class="text-gray-600">点击查看各个页面的详细设计</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 主页 -->
+                <div class="preview-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="phone-preview mb-4">
+                        <div class="phone-screen-preview bg-gradient-to-br from-pink-100 to-purple-100">
+                            <div class="p-4 h-full flex flex-col">
+                                <div class="text-xs font-semibold mb-2">今天</div>
+                                <div class="bg-gradient-to-r from-pink-400 to-purple-500 rounded-lg text-white p-3 mb-3 flex-1">
+                                    <div class="text-sm font-semibold">2024年1月15日</div>
+                                    <div class="text-xs opacity-80">腊月初五</div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-white rounded p-2 text-center">
+                                        <div class="text-blue-500 text-sm">📅</div>
+                                        <div class="text-xs">转换</div>
+                                    </div>
+                                    <div class="bg-white rounded p-2 text-center">
+                                        <div class="text-green-500 text-sm">📊</div>
+                                        <div class="text-xs">记录</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-center mb-2">主页</h3>
+                    <p class="text-gray-600 text-sm text-center mb-4">今日信息展示</p>
+                    <a href="home.html" class="block w-full bg-blue-500 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                        查看页面
+                    </a>
+                </div>
+
+                <!-- 转换器 -->
+                <div class="preview-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="phone-preview mb-4">
+                        <div class="phone-screen-preview bg-gradient-to-br from-blue-100 to-indigo-100">
+                            <div class="p-4 h-full flex flex-col">
+                                <div class="text-xs font-semibold mb-2">日期转换</div>
+                                <div class="bg-white rounded-lg p-3 mb-3 flex-1">
+                                    <div class="bg-gray-100 rounded p-1 mb-3">
+                                        <div class="bg-white rounded px-2 py-1 text-xs">公历转农历</div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="bg-blue-50 rounded p-2 text-center">
+                                            <div class="text-xs text-blue-600">2024年1月15日</div>
+                                        </div>
+                                        <div class="text-center">↓</div>
+                                        <div class="bg-purple-50 rounded p-2 text-center">
+                                            <div class="text-xs text-purple-600">腊月初五</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-center mb-2">转换器</h3>
+                    <p class="text-gray-600 text-sm text-center mb-4">核心转换功能</p>
+                    <a href="converter.html" class="block w-full bg-blue-500 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                        查看页面
+                    </a>
+                </div>
+
+                <!-- 历史记录 -->
+                <div class="preview-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="phone-preview mb-4">
+                        <div class="phone-screen-preview bg-gradient-to-br from-green-100 to-teal-100">
+                            <div class="p-4 h-full flex flex-col">
+                                <div class="text-xs font-semibold mb-2">查询记录</div>
+                                <div class="bg-white rounded-lg p-3 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 bg-yellow-100 rounded"></div>
+                                        <div>
+                                            <div class="text-xs font-medium">我的生日</div>
+                                            <div class="text-xs text-gray-500">收藏</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 flex-1">
+                                    <div class="bg-white rounded p-2">
+                                        <div class="text-xs">2024年1月15日</div>
+                                        <div class="text-xs text-gray-500">腊月初五</div>
+                                    </div>
+                                    <div class="bg-white rounded p-2">
+                                        <div class="text-xs">腊月初一</div>
+                                        <div class="text-xs text-gray-500">2024年1月11日</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-center mb-2">历史记录</h3>
+                    <p class="text-gray-600 text-sm text-center mb-4">查询记录管理</p>
+                    <a href="history.html" class="block w-full bg-blue-500 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                        查看页面
+                    </a>
+                </div>
+
+                <!-- 设置 -->
+                <div class="preview-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="phone-preview mb-4">
+                        <div class="phone-screen-preview bg-gradient-to-br from-purple-100 to-pink-100">
+                            <div class="p-4 h-full flex flex-col">
+                                <div class="text-xs font-semibold mb-2">设置</div>
+                                <div class="bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg text-white p-3 mb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-white/20 rounded-full"></div>
+                                        <div>
+                                            <div class="text-sm font-semibold">用户</div>
+                                            <div class="text-xs opacity-80">专家</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 flex-1">
+                                    <div class="bg-white rounded p-2 flex justify-between items-center">
+                                        <div class="text-xs">主题模式</div>
+                                        <div class="w-6 h-3 bg-blue-400 rounded-full"></div>
+                                    </div>
+                                    <div class="bg-white rounded p-2 flex justify-between items-center">
+                                        <div class="text-xs">自动保存</div>
+                                        <div class="w-6 h-3 bg-blue-400 rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-center mb-2">设置</h3>
+                    <p class="text-gray-600 text-sm text-center mb-4">个性化配置</p>
+                    <a href="settings.html" class="block w-full bg-blue-500 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                        查看页面
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术特色 -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">设计特色</h2>
+                <p class="text-gray-600">专业的UI设计，完美的用户体验</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">真实设备模拟</h3>
+                    <p class="text-gray-600">完美还原iPhone 13 Pro Max界面，包括圆角、状态栏等细节</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-paint-brush text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">现代化设计</h3>
+                    <p class="text-gray-600">遵循iOS设计规范，使用渐变色彩和流畅动画</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-cogs text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">交互体验</h3>
+                    <p class="text-gray-600">丰富的交互反馈和动画效果，提供优秀的用户体验</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-xl font-semibold mb-4">📱 日历转换App 原型设计</h3>
+            <p class="text-gray-400 mb-6">专业的移动应用UI/UX设计，可直接用于开发参考</p>
+            
+            <div class="flex justify-center space-x-8 text-sm mb-8">
+                <div>
+                    <i class="fas fa-code mr-2"></i>
+                    HTML + CSS + JS
+                </div>
+                <div>
+                    <i class="fas fa-palette mr-2"></i>
+                    Tailwind CSS
+                </div>
+                <div>
+                    <i class="fas fa-icons mr-2"></i>
+                    Font Awesome
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6">
+                <p class="text-gray-400 text-sm">© 2024 日历转换App. 仅供学习和参考使用</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 添加页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.preview-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>
