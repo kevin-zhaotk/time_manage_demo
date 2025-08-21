@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/converter_screen.dart';
+import 'screens/converter_flutter_ui.dart';
 import 'screens/history_screen.dart';
 import 'screens/settings_screen.dart';
 import 'providers/converter_provider.dart';
@@ -51,7 +52,7 @@ class CalendarConverterApp extends StatelessWidget {
         home: const AppContainer(),
         routes: {
           '/home': (context) => const HomeScreen(),
-          '/converter': (context) => const ConverterScreen(),
+          '/converter': (context) => const ConverterFlutterUI(),
           '/history': (context) => const HistoryScreen(),
           '/settings': (context) => const SettingsScreen(),
         },
@@ -60,13 +61,13 @@ class CalendarConverterApp extends StatelessWidget {
             case '/home':
               return _createRoute(const HomeScreen());
             case '/converter':
-              return _createRoute(const ConverterScreen());
+              return _createRoute(const ConverterFlutterUI());
             case '/history':
               return _createRoute(const HistoryScreen());
             case '/settings':
               return _createRoute(const SettingsScreen());
             default:
-              return _createRoute(const HomeScreen());
+              return _createRoute(const ConverterFlutterUI());
           }
         },
       ),
@@ -119,7 +120,7 @@ class AppContainer extends StatelessWidget {
               ),
             ],
           ),
-          child: const HomeScreen(), // 默认显示主页
+          child: const ConverterFlutterUI(), // 默认显示转换器页面
         ),
       ),
     );
