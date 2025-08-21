@@ -2,10 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'screens/home_screen.dart';
 import 'screens/converter_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/settings_screen.dart';
 import 'providers/converter_provider.dart';
+import 'providers/home_provider.dart';
+import 'providers/history_provider.dart';
+import 'providers/settings_provider.dart';
+import 'utils/constants.dart';
+import 'utils/storage_utils.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // 初始化本地存储
+  await StorageUtils().init();
+  
   runApp(const CalendarConverterApp());
 }
 
@@ -25,44 +38,60 @@ class CalendarConverterApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => ConverterProvider()),
+        ChangeNotifierProvider(create: (_) => HistoryProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
       ],
       child: MaterialApp(
-        title: '日历转换',
+        title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: 'SF Pro Display',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          // iOS风格主题配置
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            systemOverlayStyle: SystemUiOverlayStyle.dark,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-          cardTheme: CardTheme(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: const AppContainer(),
         routes: {
+          '/home': (context) => const HomeScreen(),
           '/converter': (context) => const ConverterScreen(),
-          '/home': (context) => const HomePage(),
-          '/history': (context) => const HistoryPage(),
-          '/settings': (context) => const SettingsPage(),
+          '/history': (context) => const HistoryScreen(),
+          '/settings': (context) => const SettingsScreen(),
+        },
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/home':
+              return _createRoute(const HomeScreen());
+            case '/converter':
+              return _createRoute(const ConverterScreen());
+            case '/history':
+              return _createRoute(const HistoryScreen());
+            case '/settings':
+              return _createRoute(const SettingsScreen());
+            default:
+              return _createRoute(const HomeScreen());
+          }
         },
       ),
+    );
+  }
+
+  // 创建页面转场动画
+  PageRouteBuilder _createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(
+          CurveTween(curve: curve),
+        );
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+      transitionDuration: AppConstants.animationDurationMedium,
     );
   }
 }
@@ -77,11 +106,11 @@ class AppContainer extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Center(
         child: Container(
-          width: 428, // iPhone 13 Pro Max宽度
-          height: 926, // iPhone 13 Pro Max高度
+          width: AppConstants.deviceWidth,
+          height: AppConstants.deviceHeight,
           decoration: BoxDecoration(
             color: Colors.black,
-            borderRadius: BorderRadius.circular(39),
+            borderRadius: BorderRadius.circular(AppConstants.deviceRadius),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.5),
@@ -90,7 +119,7 @@ class AppContainer extends StatelessWidget {
               ),
             ],
           ),
-          child: const ConverterScreen(),
+          child: const HomeScreen(), // 默认显示主页
         ),
       ),
     );
